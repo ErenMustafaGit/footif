@@ -1,5 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter
+const router = createBrowserRouter([
+    {
+        path: "/"
+    }
+])
 
 export {}
