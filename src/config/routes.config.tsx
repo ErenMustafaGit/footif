@@ -1,9 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import { Home } from "../pages/Home/Home";
+import { Team } from "../pages/Team/Team";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
     {
-        path: "/"
-    }
-])
+        path: "/",
+        element: <Home />,
+    },
+    {
+        path: "team",
+        element: <Outlet />,
+        children: [
+            {
+                path: ":name",
+                element: <Team />,
+            }
+        ]
+    },
+  ]);
 
-export {}
+const routes = [
+
+]
