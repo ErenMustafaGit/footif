@@ -1,11 +1,10 @@
-import { Searchbar } from "./components/Searchbar";
+import { Layout } from "./containers/Layout";
 
 function App() {
   return (
-    <>
-      Footif letsgo
-      <Searchbar placeholder="gabin" />
-    </>
+    <div>
+      <Layout />
+    </div>
   );
 }
 
