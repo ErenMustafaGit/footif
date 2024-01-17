@@ -1,5 +1,10 @@
+import { Box } from "@chakra-ui/react"
+import { Card } from "../../components"
+
 export const Home = () => {
     return (
-        <>Home</>
+        <Box>
+            <Card title="Emmanuel Macron" />
+        </Box>
     )
 }
