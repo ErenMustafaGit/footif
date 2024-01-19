@@ -43,7 +43,15 @@ export const Home = () => {
             >
                 {data ? (
                     <>
-                        {/** TODO: map query results (data) */}
+                        {data?.results?.bindings?.map((item: any) => (
+                             <Card
+                                title={item.playerName?.value ?? (item.clubName?.value ?? (item.ligueName?.value ?? "Unsupported type"))}
+                                subtitle={item.playerName?.value ? "Joueur" : (item.clubName?.value ? "Club" : (item.ligueName?.value ? "Championnat" : "Unsupported type"))}
+                                type={item.playedID?.value ? "player" : (item.clubID?.value ? "team" : (item.ligueID?.value ? "ligue" : ""))}
+                                wikiId={item.playedID?.value ?? (item.clubID?.value ?? (item.ligueID?.value ?? "-1"))}
+                                width="100%"
+                            />
+                        ))}
                     </>
                 ) : (
                     <>
@@ -52,23 +60,22 @@ export const Home = () => {
                         : (
                             <>
                                 <Card
-                                        title="Lionel Messi"
-                                        subtitle="Joueur"
-                                        type="player"
-                                        wikiId="2150841"
-                                        width="100%"
-                                    />
+                                    title="Lionel Messi"
+                                    subtitle="Joueur"
+                                    type="player"
+                                    wikiId="2150841"
+                                    width="100%"
+                                />
 
-                                    <Card
-                                        title="FC Barcelone"
-                                        subtitle="Club"
-                                        type="team"
-                                        wikiId="68187"
-                                        width="100%"
-                                    />
-                                </>
-                            )
-                        }
+                                <Card
+                                    title="FC Barcelone"
+                                    subtitle="Club"
+                                    type="team"
+                                    wikiId="68187"
+                                    width="100%"
+                                />
+                            </>
+                        )}
                     </>
                 )}
             </Box>
