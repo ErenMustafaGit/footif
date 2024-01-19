@@ -1,11 +1,15 @@
+import { Input } from "@chakra-ui/react";
+
 export interface SearchbarProps {
     placeholder?: string;
+    width?: string;
 }
 
 export const Searchbar = (props: SearchbarProps) => {
     return (
-        <div>
-            <input placeholder={props.placeholder} />
-        </div>
+        <Input
+            placeholder={props.placeholder}
+            width={props.width}
+        />
     )
 }

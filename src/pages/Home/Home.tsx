@@ -1,10 +1,40 @@
 import { Box } from "@chakra-ui/react"
-import { Card } from "../../components"
+import { Card, Searchbar } from "../../components"
 
 export const Home = () => {
     return (
-        <Box>
-            <Card title="Emmanuel Macron" />
+        <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            gap="32px"
+            padding="32px"
+            width="100%"
+        >
+            <Searchbar
+                placeholder="Recherchez un joueur, un club, ..."
+                width="60%"
+            />
+
+            <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                gap="16px"
+                width="100%"
+            >
+                <Card
+                    title="Lionel Messi"
+                    subtitle="Joueur"
+                    width="100%"
+                />
+
+                <Card
+                    title="FC Barcelone"
+                    subtitle="Club"
+                    width="100%"
+                />
+            </Box>
         </Box>
     )
 }
