@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Spinner } from "@chakra-ui/react"
 import { Card, Searchbar } from "../../components"
 import { useEffect, useState } from "react"
 import { useFetchSearch } from "../../queries"
@@ -18,7 +18,7 @@ export const Home = () => {
     useEffect(() => {
         console.log(data);
     }, [data]);
-    
+
     return (
         <Box
             display="flex"
@@ -42,24 +42,40 @@ export const Home = () => {
                 width="100%"
             >
                 {data ? (
-                    <></>
+                    <>
+                        {data?.results?.bindings?.map((item: any) => (
+                             <Card
+                                title={item.playerName?.value ?? (item.clubName?.value ?? (item.ligueName?.value ?? "Unsupported type"))}
+                                subtitle={item.playerName?.value ? "Joueur" : (item.clubName?.value ? "Club" : (item.ligueName?.value ? "Championnat" : "Unsupported type"))}
+                                type={item.playedID?.value ? "player" : (item.clubID?.value ? "team" : (item.ligueID?.value ? "ligue" : ""))}
+                                wikiId={item.playedID?.value ?? (item.clubID?.value ?? (item.ligueID?.value ?? "-1"))}
+                                width="100%"
+                            />
+                        ))}
+                    </>
                 ) : (
                     <>
-                        <Card
-                            title="Lionel Messi"
-                            subtitle="Joueur"
-                            type="player"
-                            wikiId="2150841"
-                            width="100%"
-                        />
+                        {isLoading ? (
+                            <Spinner />)
+                        : (
+                            <>
+                                <Card
+                                    title="Lionel Messi"
+                                    subtitle="Joueur"
+                                    type="player"
+                                    wikiId="2150841"
+                                    width="100%"
+                                />
 
-                        <Card
-                            title="FC Barcelone"
-                            subtitle="Club"
-                            type="team"
-                            wikiId="68187"
-                            width="100%"
-                        />
+                                <Card
+                                    title="FC Barcelone"
+                                    subtitle="Club"
+                                    type="team"
+                                    wikiId="68187"
+                                    width="100%"
+                                />
+                            </>
+                        )}
                     </>
                 )}
             </Box>
