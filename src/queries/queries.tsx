@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { CONST } from "../config"
 
-const useBaseQuery = (sparqlQuery: string) => {
+const useBaseQuery = (sparqlQuery: string, enabled: boolean) => {
     return useQuery({
+        enabled: enabled,
         queryKey: [""],
         queryFn: () =>
             fetch(`${CONST.SPARQL_API_URL}?default-graph-uri=${encodeURIComponent(CONST.DEFAULT_GRAPH_URI)}&query=${encodeURIComponent(CONST.SPARQL_PREFIXES)}  ${encodeURIComponent(sparqlQuery)}&output=json`)
@@ -10,7 +11,12 @@ const useBaseQuery = (sparqlQuery: string) => {
     });
 };
 
+export const useFetchSearch = (searchTerm: string) => {
+    // Insert SparQL query in the brackets pls
+    return useBaseQuery("", !!searchTerm);
+};
 
-export const useFetchPlayers = () => {
-    return {...useBaseQuery("SELECT * WHERE {?x a dbo:VideoGame}")};
+// Example of how to create a query with a SparQL request
+export const useFetchVideoGames = () => {
+    return useBaseQuery("SELECT * WHERE {?x a dbo:VideoGame}", true);
 };

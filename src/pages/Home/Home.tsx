@@ -1,7 +1,24 @@
 import { Box } from "@chakra-ui/react"
 import { Card, Searchbar } from "../../components"
+import { useEffect, useState } from "react"
+import { useFetchSearch } from "../../queries"
 
 export const Home = () => {
+    const [search, setSearch] = useState<string>("");
+    const { isLoading, data, error } = useFetchSearch(search);
+
+    const handleSubmitSearch = (val: string) => {
+        setSearch(val);
+    };
+
+    useEffect(() => {
+        console.log(search);
+    }, [search]);
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+    
     return (
         <Box
             display="flex"
@@ -12,6 +29,7 @@ export const Home = () => {
             width="100%"
         >
             <Searchbar
+                onSubmit={handleSubmitSearch}
                 placeholder="Recherchez un joueur, un club, ..."
                 width="60%"
             />
