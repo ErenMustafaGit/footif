@@ -26,12 +26,14 @@ export const Home = () => {
                 <Card
                     title="Lionel Messi"
                     subtitle="Joueur"
+                    type="player"
                     width="100%"
                 />
 
                 <Card
                     title="FC Barcelone"
                     subtitle="Club"
+                    type="team"
                     width="100%"
                 />
             </Box>
