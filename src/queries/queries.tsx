@@ -72,7 +72,25 @@ export const useFetchPlayerDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails"],
     !!wikiId,
-    `SELECT DISTINCT ?id ?name ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number WHERE { ?player dbo:wikiPageID '${wikiId}'^^xsd:integer; dbo:wikiPageID ?id; rdfs:label ?name. OPTIONAL {?player dbp:nationalteam ?nationalteam.} OPTIONAL {?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname.} OPTIONAL {?player dbp:position ?position.} OPTIONAL {?position rdfs:label ?positionname.} OPTIONAL {?player dbo:birthDate ?datebirth.} OPTIONAL {?player dbo:birthPlace ?placebirth.} OPTIONAL {?placebirth dbp:name ?placebirthname.} OPTIONAL {?player dbo:height ?height.} OPTIONAL {?player dbp:currentnumber ?number.} FILTER (lang(?name) = 'en'). FILTER (lang(?nationalteamname) = 'en'). FILTER (lang(?positionname) = 'fr'). FILTER (lang(?placebirthname) = 'en'). FILTER(!regex(?nationalteamname, "under", "i")). } LIMIT 1';`
+    `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
+    WHERE
+    {
+      ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
+      rdfs:label ?name.
+      OPTIONAL {?player dbo:thumbnail ?thumbnail.}
+      OPTIONAL {?player dbo:abstract ?abstract. FILTER (lang(?abstract) = "en").}
+      OPTIONAL {?player dbp:nationalteam ?nationalteam. ?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname. FILTER (lang(?nationalteamname) = "en").FILTER(!regex(?nationalteamname, "under", "i")).}
+      OPTIONAL {?player dbp:position ?position. ?position rdfs:label ?positionname. FILTER (lang(?positionname) = "fr").}
+      OPTIONAL {?player dbo:birthDate ?datebirth.}
+      OPTIONAL {?player dbo:birthPlace ?placebirth. ?placebirth dbp:name ?placebirthname. FILTER (lang(?placebirthname) = "en").}
+      OPTIONAL {?player dbo:height ?height.}
+      OPTIONAL {?player dbp:currentnumber ?number.}
+      OPTIONAL {?player dbp:currentclub ?club. ?club dbo:wikiPageID ?currentclubid; rdfs:label ?currentclubname. FILTER (lang(?currentclubname) = "en").}
+      OPTIONAL {?player dbo:team ?clubs. ?clubs dbo:wikiPageID ?clubid; rdfs:label ?clubname. FILTER (lang(?clubname) = "en").}
+      OPTIONAL {?player dbo:thumbnail ?photo.}
+      FILTER (lang(?name) = "en").
+    }
+    GROUP BY ?player ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?number ?height ?datebirth ?placebirthname ?currentclubid ?currentclubname ?photo`
   );
 };
 
