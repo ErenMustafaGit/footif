@@ -2,7 +2,7 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
-import { INITIAL_DATA } from "../../utils";
+import { INITIAL_DATA, getType } from "../../utils";
 
 export const Home = () => {
   const [search, setSearch] = useState<string>("");
@@ -63,17 +63,9 @@ export const Home = () => {
                     ? "Championnat"
                     : "Unsupported type"
                 }
-                type={
-                  item.playedID?.value
-                    ? "player"
-                    : item.clubID?.value
-                    ? "team"
-                    : item.ligueID?.value
-                    ? "ligue"
-                    : ""
-                }
+                type={getType(item)}
                 wikiId={
-                  item.playedID?.value ??
+                  item.playerID?.value ??
                   item.clubID?.value ??
                   item.ligueID?.value ??
                   "-1"

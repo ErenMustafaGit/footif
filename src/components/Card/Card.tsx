@@ -1,7 +1,7 @@
 import { Card as CardBase, CardBody } from "@chakra-ui/card";
-import { Heading, Image, Stack, Text } from "@chakra-ui/react";
-import { Box } from "lucide-react";
+import { Box, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { TYPE } from "../../utils";
 
 export interface CardProps {
   icon?: string;
@@ -17,13 +17,13 @@ export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
   const handleClick = () => {
     console.log(title);
     switch (type) {
-      case "player":
+      case TYPE.PLAYER:
         navigator(`/player/${wikiId}`);
         break;
-      case "team":
+      case TYPE.TEAM:
         navigator(`/team/${wikiId}`);
         break;
-      case "tournament":
+      case TYPE.TOURNAMENT:
         navigator(`/tournament/${wikiId}`);
         break;
       default:
@@ -39,19 +39,18 @@ export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
       width="100%"
       onClick={() => handleClick()}
       _hover={{
-        backgroundColor: "green.50",
+        backgroundColor: "gray.50",
         transform: "scale(1.01)",
-        transitionDuration: "0.4s",
+        transitionDuration: "0.2s",
         transitionTimingFunction: "ease-in-out",
       }}
     >
       <Image
         objectFit="cover"
         src={icon}
-        maxHeight={{ base: "100px", sm: "100px" }}
-        maxW={{ base: "100%", sm: "100px" }}
+        height={{ base: "100px", sm: "100px" }}
+        width={{ base: "100%", sm: "100px" }}
       />
-
       <Stack padding="2">
         <CardBody>
           <Heading size={"md"}>{title}</Heading>
