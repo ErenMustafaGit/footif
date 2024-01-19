@@ -1,13 +1,11 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChakraProvider } from "@chakra-ui/react";
-import { RouterProvider } from 'react-router-dom';
-import { router } from './config';
-import { Topbar } from './components/Topbar';
-
+import { RouterProvider } from "react-router-dom";
+import { router } from "./config";
 
 const queryClient = new QueryClient();
 
-function App() {  
+function App() {
   return (
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>

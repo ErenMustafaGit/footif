@@ -7,7 +7,7 @@ export const Layout = () => {
     <>
       <Topbar />
 
-      <Container maxWidth={"80vw"}>
+      <Container maxWidth={"64rem"}>
         <Outlet />
       </Container>
     </>
