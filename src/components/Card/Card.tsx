@@ -1,7 +1,8 @@
 import { Card as CardBase, CardBody } from "@chakra-ui/card";
 import { Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { TYPE } from "../../utils";
+import { FADE_UP_ANIMATION_VARIANTS, TYPE } from "../../utils";
+import { motion } from "framer-motion";
 
 export interface CardProps {
   icon?: string;
@@ -33,6 +34,9 @@ export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
 
   return (
     <CardBase
+      as={motion.div}
+      variants={FADE_UP_ANIMATION_VARIANTS}
+      borderRadius="md"
       size="100px"
       direction={{ base: "column", sm: "row" }}
       variant={"outline"}

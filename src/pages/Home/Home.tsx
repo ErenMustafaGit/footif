@@ -3,6 +3,7 @@ import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
 import { INITIAL_DATA, getType, orderByPopularity } from "../../utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const Home = () => {
   const [search, setSearch] = useState<string>("");
@@ -38,58 +39,77 @@ export const Home = () => {
       />
 
       <Box
+        as={motion.div}
+        initial="hidden"
+        whileInView="show"
+        animate="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.18,
+            },
+          },
+        }}
         display="flex"
         flexDirection="column"
         alignItems="center"
         gap="16px"
         width="100%"
       >
-        {data ? (
-          <>
-            {orderByPopularity(data?.results?.bindings)?.map((item: any) => (
-              <Card
-                title={
-                  item.playerName?.value ??
-                  item.clubName?.value ??
-                  item.ligueName?.value ??
-                  "Unsupported type"
-                }
-                subtitle={
-                  item.playerName?.value
-                    ? "Joueur"
-                    : item.clubName?.value
-                    ? "Club"
-                    : item.ligueName?.value
-                    ? "Championnat"
-                    : "Unsupported type"
-                }
-                type={getType(item)}
-                wikiId={
-                  item.playerID?.value ??
-                  item.clubID?.value ??
-                  item.ligueID?.value ??
-                  "-1"
-                }
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              INITIAL_DATA.map((item) => (
-                <Card
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  type={item.type}
-                  wikiId={item.wikiId}
-                  icon={item.icon}
-                />
-              ))
-            )}
-          </>
-        )}
+        <AnimatePresence>
+          {data ? (
+            <>
+              {orderByPopularity(data?.results?.bindings)?.map(
+                (item: any, i: number) => (
+                  <Card
+                    key={i}
+                    title={
+                      item.playerName?.value ??
+                      item.clubName?.value ??
+                      item.ligueName?.value ??
+                      "Unsupported type"
+                    }
+                    subtitle={
+                      item.playerName?.value
+                        ? "Joueur"
+                        : item.clubName?.value
+                        ? "Club"
+                        : item.ligueName?.value
+                        ? "Championnat"
+                        : "Unsupported type"
+                    }
+                    type={getType(item)}
+                    wikiId={
+                      item.playerID?.value ??
+                      item.clubID?.value ??
+                      item.ligueID?.value ??
+                      "-1"
+                    }
+                  />
+                )
+              )}
+            </>
+          ) : (
+            <>
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                INITIAL_DATA.map((item, i) => (
+                  <Card
+                    key={i}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    type={item.type}
+                    wikiId={item.wikiId}
+                    icon={item.icon}
+                  />
+                ))
+              )}
+            </>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
   );
