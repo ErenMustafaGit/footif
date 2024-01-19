@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
 import { INITIAL_DATA, getType, orderByPopularity } from "../../utils";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Home = () => {
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState<string>("");
   const { isLoading, data, error } = useFetchSearch(search);
 
   const handleSubmitSearch = (val: string) => {
     setSearch(val);
+    queryClient.resetQueries({ queryKey: ["fetchSearch"] });
   };
 
   useEffect(() => {
@@ -94,7 +97,7 @@ export const Home = () => {
           ) : (
             <>
               {isLoading ? (
-                <Spinner />
+                <Spinner color="green" />
               ) : (
                 INITIAL_DATA.map((item, i) => (
                   <Card

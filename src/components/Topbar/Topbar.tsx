@@ -1,12 +1,9 @@
 import { Box, Image, Flex, Spacer, Text } from "@chakra-ui/react";
 import { Home, Search } from "lucide-react";
 import { Link } from "./Link";
+import { NavLink } from "react-router-dom";
 
-export interface TopbarProps {
-  placeholder?: string;
-}
-
-export const Topbar = (props: TopbarProps) => {
+export const Topbar = () => {
   return (
     <Flex
       p="4"
@@ -16,20 +13,22 @@ export const Topbar = (props: TopbarProps) => {
       boxShadow="lg"
     >
       <Box>
-        <Image
-          src="logo_footif.png"
-          alt="Logo"
-          boxSize="50px"
-          borderRadius="full"
-        />
+        <NavLink to="/">
+          <Image
+            src="logo_footif.png"
+            alt="Logo"
+            boxSize="50px"
+            borderRadius="full"
+          />
+        </NavLink>
       </Box>
       <Box ml="4">
-        <Text fontSize="xl" fontWeight="bold">
+        <Text fontSize={{ base: "sm", md: "lg" }} fontWeight="bold">
           Le moteur de recherche préféré des footix
         </Text>
       </Box>
       <Spacer />
-      <Flex gap={4}>
+      <Flex hidden gap={4}>
         <Link link="/" text="Accueil" icon={<Home />} />
         <Link link="/features" text="Features" icon={<Search />} />
       </Flex>
