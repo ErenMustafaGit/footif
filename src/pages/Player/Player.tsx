@@ -1,6 +1,14 @@
 import { useParams } from "react-router";
 import { useFetchPlayerDetails } from "../../queries/queries";
-import { Image, Link, Heading, Box, Text } from "@chakra-ui/react";
+import {
+  Image,
+  Link,
+  Heading,
+  Box,
+  Text,
+  Spinner,
+  Flex,
+} from "@chakra-ui/react";
 import { Key } from "react";
 
 export const Player = () => {
@@ -24,6 +32,14 @@ export const Player = () => {
   const clubsidsArray = clubsids.split(",");
   const clubsnamesArray = clubsnames.split(",");
 
+  if (isLoading)
+    return (
+      <Flex justifyContent="center" height="10rem" alignItems="center">
+        <Spinner color="green" />
+      </Flex>
+    );
+  if (error) return <Text>Error : {error.message}</Text>;
+
   return (
     <Box
       sx={{
@@ -33,10 +49,15 @@ export const Player = () => {
         margin: "15px",
       }}
     >
-      <Box id="blocgauche" style={{ flex: "35%", minWidth: "250px", padding: "16px" }}>
+      <Box
+        id="blocgauche"
+        style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
+      >
         <Image src={thumbnail}></Image>
         <Box padding={"8px"}>
-          <Heading size="md" marginY={"8px"}>Informations</Heading>
+          <Heading size="md" marginY={"8px"}>
+            Informations
+          </Heading>
           <Box display={"flex"} flexDirection={"row"}>
             <Text fontWeight="bold">Equipe Nationale : </Text>
             <Text>{nationalteam}</Text>
@@ -66,16 +87,21 @@ export const Player = () => {
             <Link href={"/team/" + currentclubid}>{currentclubname}</Link>
           </Box>
           <Box id="clubs">
-            <Heading size="md" marginY={"8px"}>Clubs</Heading>
+            <Heading size="md" marginY={"8px"}>
+              Clubs
+            </Heading>
             {clubsidsArray.map((clubId: Key, index: string | number) => (
-                <Box key={clubId}>
+              <Box key={clubId}>
                 <Link href={"/team/" + clubId}>{clubsnamesArray[index]}</Link>
-                </Box>
+              </Box>
             ))}
-        </Box>
+          </Box>
         </Box>
       </Box>
-      <Box id="blocdroit" style={{ flex: "65%", minWidth: "200px", padding: "16px" }}>
+      <Box
+        id="blocdroit"
+        style={{ flex: "65%", minWidth: "200px", padding: "16px" }}
+      >
         <Heading size="xl">{name}</Heading>
         <Text textAlign="justify">{abstract}</Text>
       </Box>

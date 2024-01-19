@@ -21,7 +21,7 @@ export const INITIAL_DATA: CardProps[] = [
     title: " Cristiano Ronaldo",
     subtitle: "Joueur",
     type: TYPE.PLAYER,
-    wikiId: "68187",
+    wikiId: "623737",
   },
   {
     icon: "ligue1.png",

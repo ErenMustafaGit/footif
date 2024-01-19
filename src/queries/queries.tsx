@@ -70,7 +70,7 @@ export const useFetchPlayers = () => {
 
 export const useFetchPlayerDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchPlayerDetails"],
+    ["fetchPlayerDetails", wikiId],
     !!wikiId,
     `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
     WHERE
