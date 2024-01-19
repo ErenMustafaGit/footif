@@ -27,6 +27,7 @@ export const Home = () => {
                     title="Lionel Messi"
                     subtitle="Joueur"
                     type="player"
+                    wikiId="2150841"
                     width="100%"
                 />
 
@@ -34,6 +35,7 @@ export const Home = () => {
                     title="FC Barcelone"
                     subtitle="Club"
                     type="team"
+                    wikiId="68187"
                     width="100%"
                 />
             </Box>

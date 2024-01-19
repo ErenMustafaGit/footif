@@ -14,3 +14,7 @@ const useBaseQuery = (sparqlQuery: string) => {
 export const useFetchPlayers = () => {
     return {...useBaseQuery("SELECT * WHERE {?x a dbo:VideoGame}")};
 };
+
+export const useFetchPlayerDetails = (wikiId: string) => {
+    return {...useBaseQuery(`SELECT * WHERE {?x a dbo:SoccerPlayer.; dbo:wikiPageID ${wikiId}`)};
+}

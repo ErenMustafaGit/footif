@@ -6,23 +6,24 @@ export interface CardProps {
     icon?: string;
     title?: string;
     subtitle?: string;
+    wikiId?: string;
     type?: string;
     width?: string;
 };
 
 
 
-export const Card = ({ icon, title, subtitle, type, width }: CardProps) => {
+export const Card = ({ icon, title, subtitle, wikiId, type, width }: CardProps) => {
     const navigator = useNavigate();
 
     const handleClick = () => {
         console.log(title);
         switch (type) {
             case "player":
-                navigator(`/player/${title}`);
+                navigator(`/player/${wikiId}`);
                 break;
             case "team":
-                navigator(`/team/${title}`);
+                navigator(`/team/${wikiId}`);
                 break;
             default:
                 break;
