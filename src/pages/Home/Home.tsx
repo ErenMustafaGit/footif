@@ -2,7 +2,7 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
-import { INITIAL_DATA, getType } from "../../utils";
+import { INITIAL_DATA, getType, orderByPopularity } from "../../utils";
 
 export const Home = () => {
   const [search, setSearch] = useState<string>("");
@@ -46,7 +46,7 @@ export const Home = () => {
       >
         {data ? (
           <>
-            {data?.results?.bindings?.map((item: any) => (
+            {orderByPopularity(data?.results?.bindings)?.map((item: any) => (
               <Card
                 title={
                   item.playerName?.value ??

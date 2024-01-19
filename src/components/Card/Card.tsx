@@ -1,5 +1,5 @@
 import { Card as CardBase, CardBody } from "@chakra-ui/card";
-import { Box, Heading, Image, Stack, Text } from "@chakra-ui/react";
+import { Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { TYPE } from "../../utils";
 
