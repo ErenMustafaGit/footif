@@ -1,4 +1,4 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Home } from "../pages/Home/Home";
 import { Player } from "../pages/Player/Player";
 import { Team } from "../pages/Team/Team";
@@ -13,43 +13,34 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => ({
-          pageTitle: "Home",
-        }),
       },
       {
         path: "team",
         children: [
-            {
-                path: "/",
-                element: <Home />
-            },
-            {
-                path: "team",
-                children: [
-                    {
-                        path: ":wikiId",
-                        element: <Team />,
-                    }
-                ]
-            },
-            {
-                path: "tournament",
-                children: [
-                    {
-                        path: ":wikiId",
-                        element: <Tournament />,
-                    }
-                ]
-            },
-            {
-                path: "player",
-                children: [
-                    {
-                        path: ":wikiId",
-                        element: <Player />,
-                    }
-                ]
-            },
-        ]
-    ],},
+          {
+            path: ":wikiId",
+            element: <Team />,
+          },
+        ],
+      },
+      {
+        path: "tournament",
+        children: [
+          {
+            path: ":wikiId",
+            element: <Tournament />,
+          },
+        ],
+      },
+      {
+        path: "player",
+        children: [
+          {
+            path: ":wikiId",
+            element: <Player />,
+          },
+        ],
+      },
+    ],
+  },
+]);
