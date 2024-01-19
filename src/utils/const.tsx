@@ -3,17 +3,38 @@ import { TYPE } from "./enums";
 
 export const INITIAL_DATA: CardProps[] = [
   {
-    icon: "barca.png",
-    title: "FC Barcelone",
+    icon: "galatasaray.png",
+    title: "Galatasaray S.K.",
     subtitle: "Club",
     type: TYPE.TEAM,
-    wikiId: "68187",
+    wikiId: "23608452",
+  },
+  {
+    icon: "psg.jpg",
+    title: "Paris Saint-Germain F.C.",
+    subtitle: "Club",
+    type: TYPE.TEAM,
+    wikiId: "357488",
   },
   {
     icon: "ronaldo.jpeg",
     title: " Cristiano Ronaldo",
     subtitle: "Joueur",
     type: TYPE.PLAYER,
+    wikiId: "68187",
+  },
+  {
+    icon: "ligue1.png",
+    title: "Ligue 1",
+    subtitle: "Ligue",
+    type: TYPE.TOURNAMENT,
+    wikiId: "1082929",
+  },
+  {
+    icon: "barca.png",
+    title: "FC Barcelone",
+    subtitle: "Club",
+    type: TYPE.TEAM,
     wikiId: "68187",
   },
   {
