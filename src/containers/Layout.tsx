@@ -1,15 +1,15 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { Outlet } from "react-router";
+import { Topbar } from "../components/Topbar";
 
 export const Layout = () => {
-    return (
-        <>
-            <Box height={"64px"} backgroundColor={"green"}>
-            </Box>
+  return (
+    <>
+      <Topbar />
 
-            <Container maxWidth={"80vw"}>
-                <Outlet />
-            </Container>
-        </>
-    )
-}
+      <Container maxWidth={"80vw"}>
+        <Outlet />
+      </Container>
+    </>
+  );
+};
