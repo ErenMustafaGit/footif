@@ -20,3 +20,10 @@ export const useFetchSearch = (searchTerm: string) => {
 export const useFetchVideoGames = () => {
     return useBaseQuery("SELECT * WHERE {?x a dbo:VideoGame}", true);
 };
+export const useFetchPlayers = () => {
+    return useBaseQuery("SELECT * WHERE {?x a dbo:VideoGame}", true);
+};
+
+export const useFetchPlayerDetails = (wikiId: string) => {
+    return useBaseQuery(`SELECT * WHERE {?x a dbo:SoccerPlayer.; dbo:wikiPageID ${wikiId}`, !!wikiId);
+}

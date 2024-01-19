@@ -44,12 +44,16 @@ export const Home = () => {
                 <Card
                     title="Lionel Messi"
                     subtitle="Joueur"
+                    type="player"
+                    wikiId="2150841"
                     width="100%"
                 />
 
                 <Card
                     title="FC Barcelone"
                     subtitle="Club"
+                    type="team"
+                    wikiId="68187"
                     width="100%"
                 />
             </Box>

@@ -1,7 +1,8 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
+import { Home } from "../pages/Home/Home";
+import { Player } from "../pages/Player/Player";
 import { Team } from "../pages/Team/Team";
 import { Layout } from "../containers/Layout";
-import { Home } from "../pages/Home";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,16 @@ export const router = createBrowserRouter([
             {
                 path: ":name",
                 element: <Team />,
+            }
+        ]
+    },
+    {
+        path: "player",
+        element: <Outlet />,
+        children: [
+            {
+                path: ":wikiId",
+                element: <Player />,
             }
         ]
     },
