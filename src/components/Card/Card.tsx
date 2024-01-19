@@ -25,10 +25,14 @@ export const Card = ({ icon, title, subtitle, wikiId, type, width }: CardProps) 
             case "team":
                 navigator(`/team/${wikiId}`);
                 break;
+            case "tournament":
+                navigator(`/tournament/${wikiId}`);
+                break;
             default:
                 break;
         }
     }
+    
     return (
         <CardBase variant={"outline"} width={width} onClick={()=>handleClick()}>
             <Image src="" />

@@ -1,13 +1,13 @@
 import { useNavigate, useParams } from "react-router"
+import { useFetchTournamentDetails } from "../../queries/queries"
+import { Image, Heading, Box, Text } from "@chakra-ui/react"
 
 export const Team = () => {
-    const { name } = useParams();
-    const navigate = useNavigate();
+    const { wikiId } = useParams();
 
     return (
-        <div>
-            <p>Team {name}</p>
-            <button onClick={() => navigate('/')}>Test navigation vers home</button>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', margin: '15px'}}>
+            
+        </Box>
     )
 }

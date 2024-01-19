@@ -3,6 +3,7 @@ import { Home } from "../pages/Home/Home";
 import { Player } from "../pages/Player/Player";
 import { Team } from "../pages/Team/Team";
 import { Layout } from "../containers/Layout";
+import { Tournament } from "../pages/Tournament";
 
 export const router = createBrowserRouter([
     {
@@ -17,8 +18,17 @@ export const router = createBrowserRouter([
                 path: "team",
                 children: [
                     {
-                        path: ":name",
+                        path: ":wikiId",
                         element: <Team />,
+                    }
+                ]
+            },
+            {
+                path: "tournament",
+                children: [
+                    {
+                        path: ":wikiId",
+                        element: <Tournament />,
                     }
                 ]
             },
