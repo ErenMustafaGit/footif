@@ -18,7 +18,7 @@ export const Searchbar = (props: SearchbarProps) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ width: "100% "}}>
             <Input
                 placeholder={props.placeholder}
                 onSubmit={() => console.log("heyy")}

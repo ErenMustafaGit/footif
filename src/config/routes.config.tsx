@@ -12,27 +12,25 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
-            }
-        ]
-    },
-    {
-        path: "team",
-        element: <Outlet />,
-        children: [
+            },
             {
-                path: ":name",
-                element: <Team />,
-            }
-        ]
-    },
-    {
-        path: "player",
-        element: <Outlet />,
-        children: [
+                path: "team",
+                children: [
+                    {
+                        path: ":name",
+                        element: <Team />,
+                    }
+                ]
+            },
             {
-                path: ":wikiId",
-                element: <Player />,
-            }
+                path: "player",
+                children: [
+                    {
+                        path: ":wikiId",
+                        element: <Player />,
+                    }
+                ]
+            },
         ]
     },
   ]);
