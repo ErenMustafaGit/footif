@@ -1,28 +1,40 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-export const Link = ({ link, text }: { link: string; text: string }) => {
+export const Link = ({
+  link,
+  text,
+  icon,
+}: {
+  link: string;
+  text: string;
+  icon: any;
+}) => {
   return (
     <NavLink to={link}>
-      <Box
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        gap={2}
         padding={1}
         px={4}
         backgroundColor={
-          window.location.pathname === link ? "#0C461E" : undefined
+          window.location.pathname === link ? "green.900" : undefined
         }
         _hover={
           window.location.pathname === link
             ? {}
             : {
-                backgroundColor: "#25753E",
+                backgroundColor: "green.700",
               }
         }
         rounded={8}
       >
-        <Text fontSize="xl" fontWeight="bold" color="#">
+        {icon}
+        <Text fontSize="xl" fontWeight="bold">
           {text}
         </Text>
-      </Box>
+      </Flex>
     </NavLink>
   );
 };

@@ -1,5 +1,5 @@
 import { Box, Image, Flex, Spacer, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Home, Search } from "lucide-react";
 import { Link } from "./Link";
 
 export interface TopbarProps {
@@ -8,7 +8,13 @@ export interface TopbarProps {
 
 export const Topbar = (props: TopbarProps) => {
   return (
-    <Flex p="4" bg="#17642f" color="white" alignItems="center" boxShadow="lg">
+    <Flex
+      p="4"
+      bgGradient={"linear(to-r, green.700, green.800)"}
+      color="white"
+      alignItems="center"
+      boxShadow="lg"
+    >
       <Box>
         <Image
           src="logo_footif.png"
@@ -24,8 +30,8 @@ export const Topbar = (props: TopbarProps) => {
       </Box>
       <Spacer />
       <Flex gap={4}>
-        <Link link="/features" text="Features" />
-        <Link link="/" text="Accueil" />
+        <Link link="/" text="Accueil" icon={<Home />} />
+        <Link link="/features" text="Features" icon={<Search />} />
       </Flex>
     </Flex>
   );
