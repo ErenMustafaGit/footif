@@ -16,7 +16,39 @@ export const useFetchSearch = (searchTerm: string) => {
     // Insert SparQL query in the brackets pls
     return useBaseQuery(
         ["fetchSearch"], !!searchTerm,
-        "requête SPARQL"
+        `
+    SELECT DISTINCT ?playerID, ?playerName, COUNT(?linksPlayer) AS ?popularityPlayer, ?clubID, ?clubName, COUNT(?linksClub) AS ?popularityClub, ?ligueID, ?ligueName, COUNT(?linksLigue) AS ?popularityLigue
+    WHERE
+    {
+        {
+            ?player rdf:type dbo:SoccerPlayer, dbo:Person.
+            ?player rdfs:label ?playerName.
+            ?player dbo:wikiPageID ?playerID.
+            ?linksPlayer dbo:wikiPageWikiLink ?player.
+            FILTER(regex(?playerName,"${searchTerm}","i"))
+            FILTER(lang(?playerName)="en")
+        }
+        UNION
+        {
+            ?club rdf:type dbo:SoccerClub, dbo:SportsClub.
+            ?club rdfs:label ?clubName.
+            ?club dbo:wikiPageID ?clubID.
+            ?linksClub dbo:wikiPageWikiLink ?club.
+            FILTER(!regex(?club, "futsal|Rugby|beach_soccer", "i"))
+            FILTER(regex(?clubName,"${searchTerm}","i"))
+            FILTER(lang(?clubName)="en")
+        }
+        UNION
+        {
+            ?ligue rdf:type dbo:SoccerLeague.
+            ?ligue rdfs:label ?ligueName.
+            ?ligue dbo:wikiPageID ?ligueID.
+            ?linksPlayer dbo:wikiPageWikiLink ?ligue.
+            FILTER(regex(?ligueName,"${searchTerm}","i"))
+            FILTER(lang(?ligueName)="en")
+        }
+    }
+    `
     );
 };
 

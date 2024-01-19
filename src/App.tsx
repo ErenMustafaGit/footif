@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider } from 'react-router-dom';
 import { router } from './config';
+import { Topbar } from './components/Topbar';
 
 
 const queryClient = new QueryClient();
