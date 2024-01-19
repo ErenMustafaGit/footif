@@ -1,5 +1,6 @@
 import { Card as CardBase, CardBody } from "@chakra-ui/card";
 import { Heading, Image, Stack, Text } from "@chakra-ui/react";
+import { Box } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export interface CardProps {
@@ -8,17 +9,9 @@ export interface CardProps {
   subtitle?: string;
   wikiId?: string;
   type?: string;
-  width?: string;
 }
 
-export const Card = ({
-  icon,
-  title,
-  subtitle,
-  wikiId,
-  type,
-  width,
-}: CardProps) => {
+export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
   const navigator = useNavigate();
 
   const handleClick = () => {
@@ -43,12 +36,23 @@ export const Card = ({
       size="100px"
       direction={{ base: "column", sm: "row" }}
       variant={"outline"}
-      width={width}
+      width="100%"
       onClick={() => handleClick()}
+      _hover={{
+        backgroundColor: "green.50",
+        transform: "scale(1.01)",
+        transitionDuration: "0.4s",
+        transitionTimingFunction: "ease-in-out",
+      }}
     >
-      <Image objectFit="cover" src={icon} maxW={{ base: '100%', sm: '100px' }} />
+      <Image
+        objectFit="cover"
+        src={icon}
+        maxHeight={{ base: "100px", sm: "100px" }}
+        maxW={{ base: "100%", sm: "100px" }}
+      />
 
-      <Stack padding ="2">
+      <Stack padding="2">
         <CardBody>
           <Heading size={"md"}>{title}</Heading>
           <Text py="2">{subtitle}</Text>

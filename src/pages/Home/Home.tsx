@@ -1,7 +1,8 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
+import { INITIAL_DATA } from "../../utils";
 
 export const Home = () => {
   const [search, setSearch] = useState<string>("");
@@ -19,6 +20,8 @@ export const Home = () => {
     console.log(data);
   }, [data]);
 
+  if (error) return <Text>{error.message}</Text>;
+
   return (
     <Box
       display="flex"
@@ -31,7 +34,7 @@ export const Home = () => {
       <Searchbar
         onSubmit={handleSubmitSearch}
         placeholder="Recherchez un joueur, un club, ..."
-        width="60%"
+        width="100%"
       />
 
       <Box
@@ -75,7 +78,6 @@ export const Home = () => {
                   item.ligueID?.value ??
                   "-1"
                 }
-                width="100%"
               />
             ))}
           </>
@@ -84,34 +86,15 @@ export const Home = () => {
             {isLoading ? (
               <Spinner />
             ) : (
-              <>
+              INITIAL_DATA.map((item) => (
                 <Card
-                  icon="messi.jpg"
-                  title="Lionel Messi"
-                  subtitle="Joueur"
-                  type="player"
-                  wikiId="2150841"
-                  width="100%"
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  type={item.type}
+                  wikiId={item.wikiId}
+                  icon={item.icon}
                 />
-
-                <Card
-                  icon="barca.png"
-                  title="FC Barcelone"
-                  subtitle="Club"
-                  type="team"
-                  wikiId="68187"
-                  width="100%"
-                />
-
-                <Card
-                  icon="ronaldo.jpeg"
-                  title=" Cristiano Ronaldo"
-                  subtitle="Joueur"
-                  type="team"
-                  wikiId="68187"
-                  width="100%"
-                />
-              </>
+              ))
             )}
           </>
         )}
