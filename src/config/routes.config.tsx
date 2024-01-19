@@ -6,9 +6,19 @@ import { Layout } from "../containers/Layout";
 import { Tournament } from "../pages/Tournament";
 
 export const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
         path: "/",
-        element: <Layout />,
+        element: <Home />,
+        loader: () => ({
+          pageTitle: "Home",
+        }),
+      },
+      {
+        path: "team",
         children: [
             {
                 path: "/",
@@ -42,5 +52,4 @@ export const router = createBrowserRouter([
                 ]
             },
         ]
-    },
-  ]);
+    ],},
