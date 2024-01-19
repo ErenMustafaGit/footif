@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Spinner } from "@chakra-ui/react"
 import { Card, Searchbar } from "../../components"
 import { useEffect, useState } from "react"
 import { useFetchSearch } from "../../queries"
@@ -18,7 +18,7 @@ export const Home = () => {
     useEffect(() => {
         console.log(data);
     }, [data]);
-    
+
     return (
         <Box
             display="flex"
@@ -42,24 +42,33 @@ export const Home = () => {
                 width="100%"
             >
                 {data ? (
-                    <></>
+                    <>
+                        {/** TODO: map query results (data) */}
+                    </>
                 ) : (
                     <>
-                        <Card
-                            title="Lionel Messi"
-                            subtitle="Joueur"
-                            type="player"
-                            wikiId="2150841"
-                            width="100%"
-                        />
+                        {isLoading ? (
+                            <Spinner />)
+                        : (
+                            <>
+                                <Card
+                                        title="Lionel Messi"
+                                        subtitle="Joueur"
+                                        type="player"
+                                        wikiId="2150841"
+                                        width="100%"
+                                    />
 
-                        <Card
-                            title="FC Barcelone"
-                            subtitle="Club"
-                            type="team"
-                            wikiId="68187"
-                            width="100%"
-                        />
+                                    <Card
+                                        title="FC Barcelone"
+                                        subtitle="Club"
+                                        type="team"
+                                        wikiId="68187"
+                                        width="100%"
+                                    />
+                                </>
+                            )
+                        }
                     </>
                 )}
             </Box>
