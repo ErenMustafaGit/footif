@@ -33,41 +33,41 @@ export const Player = () => {
         margin: "15px",
       }}
     >
-      <Box id="blocgauche" style={{ flex: "35%", minWidth: "100px" }}>
+      <Box id="blocgauche" style={{ flex: "35%", minWidth: "250px", padding: "32px" }}>
         <Image src={thumbnail}></Image>
         <Box>
-          <Heading size="md">Main details</Heading>
+          <Heading size="md">Informations</Heading>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">National: </Text>
+            <Text fontWeight="bold">Equipe Nationale : </Text>
             <Text>{nationalteam}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Position: </Text>
+            <Text fontWeight="bold">Position : </Text>
             <Text>{positionname}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Birth date: </Text>
+            <Text fontWeight="bold">Date de naissance : </Text>
             <Text>{birthdate}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Birth place: </Text>
+            <Text fontWeight="bold">Lieu de naissance : </Text>
             <Text>{birthplace}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Height: </Text>
+            <Text fontWeight="bold">Taille : </Text>
             <Text>{height}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Number: </Text>
+            <Text fontWeight="bold">Numéo : </Text>
             <Text>{number}</Text>
           </Box>
           <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Current club: </Text>
+            <Text fontWeight="bold">Club actuel : </Text>
             <Link href={"/team/" + currentclubid}>{currentclubname}</Link>
           </Box>
         </Box>
       </Box>
-      <Box id="blocdroit" style={{ flex: "65%", minWidth: "200px" }}>
+      <Box id="blocdroit" style={{ flex: "65%", minWidth: "200px", padding: "32px" }}>
         <Heading size="xl">{name}</Heading>
         <Text>{abstract}</Text>
         <Box id="clubs">

@@ -78,15 +78,15 @@ export const useFetchPlayerDetails = (wikiId: string) => {
       ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
       rdfs:label ?name.
       OPTIONAL {?player dbo:thumbnail ?thumbnail.}
-      OPTIONAL {?player dbo:abstract ?abstract. FILTER (lang(?abstract) = "en").}
-      OPTIONAL {?player dbp:nationalteam ?nationalteam. ?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname. FILTER (lang(?nationalteamname) = "en").FILTER(!regex(?nationalteamname, "under", "i")).}
+      OPTIONAL {?player dbo:abstract ?abstract. FILTER (lang(?abstract) = "fr").}
+      OPTIONAL {?player dbp:nationalteam ?nationalteam. ?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname. FILTER (lang(?nationalteamname) = "en"). FILTER(!regex(?nationalteamname, "under", "i")).}
       OPTIONAL {?player dbp:position ?position. ?position rdfs:label ?positionname. FILTER (lang(?positionname) = "fr").}
       OPTIONAL {?player dbo:birthDate ?datebirth.}
       OPTIONAL {?player dbo:birthPlace ?placebirth. ?placebirth dbp:name ?placebirthname. FILTER (lang(?placebirthname) = "en").}
       OPTIONAL {?player dbo:height ?height.}
       OPTIONAL {?player dbp:currentnumber ?number.}
-      OPTIONAL {?player dbp:currentclub ?club. ?club dbo:wikiPageID ?currentclubid; rdfs:label ?currentclubname. FILTER (lang(?currentclubname) = "en").}
-      OPTIONAL {?player dbo:team ?clubs. ?clubs dbo:wikiPageID ?clubid; rdfs:label ?clubname. FILTER (lang(?clubname) = "en").}
+      OPTIONAL {?player dbp:currentclub ?club. ?club dbo:wikiPageID ?currentclubid; rdfs:label ?currentclubname. FILTER (lang(?currentclubname) = "en"). FILTER(!regex(?currentclubname, "under", "i")).}
+      OPTIONAL {?player dbo:team ?clubs. ?clubs dbo:wikiPageID ?clubid; rdfs:label ?clubname. FILTER (lang(?clubname) = "en"). FILTER(!regex(?clubname, "under", "i")).}
       OPTIONAL {?player dbo:thumbnail ?photo.}
       FILTER (lang(?name) = "en").
     }
