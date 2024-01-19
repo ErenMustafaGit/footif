@@ -6,7 +6,7 @@ const useBaseQuery = (sparqlQuery: string, enabled: boolean) => {
         enabled: enabled,
         queryKey: [""],
         queryFn: () =>
-            fetch(`${CONST.SPARQL_API_URL}?default-graph-uri=${encodeURIComponent(CONST.DEFAULT_GRAPH_URI)}&query=${encodeURIComponent(CONST.SPARQL_PREFIXES)}  ${encodeURIComponent(sparqlQuery)}&output=json`)
+            fetch(`${CONST.SPARQL_API_URL}?query=${encodeURIComponent(sparqlQuery)}&output=json`)
             .then((res) => res.json())
     });
 };
@@ -25,5 +25,5 @@ export const useFetchPlayers = () => {
 };
 
 export const useFetchPlayerDetails = (wikiId: string) => {
-    return useBaseQuery(`SELECT * WHERE {?x a dbo:SoccerPlayer.; dbo:wikiPageID ${wikiId}`, !!wikiId);
+    return useBaseQuery(`SELECT DISTINCT ?id ?name ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number WHERE { ?player dbo:wikiPageID '${wikiId}'^^xsd:integer; dbo:wikiPageID ?id; rdfs:label ?name. OPTIONAL {?player dbp:nationalteam ?nationalteam.} OPTIONAL {?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname.} OPTIONAL {?player dbp:position ?position.} OPTIONAL {?position rdfs:label ?positionname.} OPTIONAL {?player dbo:birthDate ?datebirth.} OPTIONAL {?player dbo:birthPlace ?placebirth.} OPTIONAL {?placebirth dbp:name ?placebirthname.} OPTIONAL {?player dbo:height ?height.} OPTIONAL {?player dbp:currentnumber ?number.} FILTER (lang(?name) = 'en'). FILTER (lang(?nationalteamname) = 'en'). FILTER (lang(?positionname) = 'fr'). FILTER (lang(?placebirthname) = 'en'). FILTER(!regex(?nationalteamname, "under", "i")). } LIMIT 1';`, !!wikiId);
 }
