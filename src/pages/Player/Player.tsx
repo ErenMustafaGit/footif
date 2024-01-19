@@ -8,6 +8,7 @@ import {
   Text,
   Spinner,
   Flex,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Key } from "react";
 
@@ -53,7 +54,11 @@ export const Player = () => {
         id="blocgauche"
         style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
       >
-        <Image src={thumbnail}></Image>
+        {!!thumbnail ? (
+          <Image src={thumbnail}></Image>
+        ) : (
+          <Skeleton height="400px" />
+        )}
         <Box padding={"8px"}>
           <Heading size="md" marginY={"8px"}>
             Informations
