@@ -33,10 +33,10 @@ export const Player = () => {
         margin: "15px",
       }}
     >
-      <Box id="blocgauche" style={{ flex: "35%", minWidth: "250px", padding: "32px" }}>
+      <Box id="blocgauche" style={{ flex: "35%", minWidth: "250px", padding: "16px" }}>
         <Image src={thumbnail}></Image>
-        <Box>
-          <Heading size="md">Informations</Heading>
+        <Box padding={"8px"}>
+          <Heading size="md" marginY={"8px"}>Informations</Heading>
           <Box display={"flex"} flexDirection={"row"}>
             <Text fontWeight="bold">Equipe Nationale : </Text>
             <Text>{nationalteam}</Text>
@@ -65,19 +65,19 @@ export const Player = () => {
             <Text fontWeight="bold">Club actuel : </Text>
             <Link href={"/team/" + currentclubid}>{currentclubname}</Link>
           </Box>
-        </Box>
-      </Box>
-      <Box id="blocdroit" style={{ flex: "65%", minWidth: "200px", padding: "32px" }}>
-        <Heading size="xl">{name}</Heading>
-        <Text>{abstract}</Text>
-        <Box id="clubs">
-            <Heading size="md">Clubs</Heading>
+          <Box id="clubs">
+            <Heading size="md" marginY={"8px"}>Clubs</Heading>
             {clubsidsArray.map((clubId: Key, index: string | number) => (
                 <Box key={clubId}>
                 <Link href={"/team/" + clubId}>{clubsnamesArray[index]}</Link>
                 </Box>
             ))}
         </Box>
+        </Box>
+      </Box>
+      <Box id="blocdroit" style={{ flex: "65%", minWidth: "200px", padding: "16px" }}>
+        <Heading size="xl">{name}</Heading>
+        <Text textAlign="justify">{abstract}</Text>
       </Box>
     </Box>
   );
