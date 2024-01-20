@@ -15,7 +15,7 @@ export const Topbar = () => {
       <Box>
         <NavLink to="/">
           <Image
-            src="logo_footif.png"
+            src="/logo_footif.png"
             alt="Logo"
             boxSize="50px"
             borderRadius="full"
