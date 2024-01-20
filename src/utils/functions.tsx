@@ -38,7 +38,39 @@ export const getWikipediaThumbnail = (item: any): string => {
   if (item.imgClub?.value) thumbnail = item.imgClub.value;
   if (item.imgLigue?.value) thumbnail = item.imgLigue.value;
 
-  return `https://en.wikipedia.org/w/index.php?title=Special:Redirect/file/File:${getWikipediaFilePath(
-    thumbnail
-  )}`;
+  return WIKIPEDIA_RESSOURCE_URL + getWikipediaFilePath(thumbnail);
+};
+
+export const getRegexSearch = (searchTerm: string) => {
+  function createRegex(inputString: string) {
+    const words = inputString.split(/\s+/);
+    if (words.length === 0) {
+      return "";
+    }
+
+    const permutations = permute(words);
+    const regexParts = permutations.map((permutation: any) =>
+      permutation.join(".*")
+    );
+    return regexParts.join("|");
+  }
+
+  function permute(arr: string[]) {
+    if (arr.length === 0) return [[]];
+    const first = arr[0],
+      rest = arr.slice(1);
+    const withoutFirst = permute(rest);
+    const withFirst: any = [];
+
+    withoutFirst.forEach((perm: any) => {
+      for (let i = 0; i <= perm.length; i++) {
+        const withFirstTemp = [...perm];
+        withFirstTemp.splice(i, 0, first);
+        withFirst.push(withFirstTemp);
+      }
+    });
+
+    return withFirst;
+  }
+  return createRegex(searchTerm);
 };

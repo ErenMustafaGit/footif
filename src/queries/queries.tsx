@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { CONST } from "../config";
+import { getRegexSearch } from "../utils";
 
 const useBaseQuery = (
   queryKey: string[],
@@ -20,6 +21,8 @@ const useBaseQuery = (
 };
 
 export const useFetchSearch = (searchTerm: string) => {
+  // Permutation of the search term (ex: "Lionel Messi" => "Messi Lionel")
+  const regexSearch = getRegexSearch(searchTerm);
   // Insert SparQL query in the brackets pls
   return useBaseQuery(
     ["fetchSearch", searchTerm],
@@ -34,7 +37,7 @@ export const useFetchSearch = (searchTerm: string) => {
                 ?player dbo:wikiPageID ?playerID.
                 ?linksPlayer dbo:wikiPageWikiLink ?player.
                 ?player dbo:thumbnail ?imgPlayer.
-                FILTER(regex(?playerName,"${searchTerm}","i"))
+                FILTER(regex(?playerName,"${regexSearch}","i"))
                 FILTER(lang(?playerName)="en")
             }
             UNION
@@ -45,7 +48,7 @@ export const useFetchSearch = (searchTerm: string) => {
                 ?linksClub dbo:wikiPageWikiLink ?club.
                 ?club dbo:thumbnail ?imgClub.
                 FILTER(!regex(?club, "futsal|Rugby|beach_soccer", "i"))
-                FILTER(regex(?clubName,"${searchTerm}","i"))
+                FILTER(regex(?clubName,"${regexSearch}","i"))
                 FILTER(lang(?clubName)="en")
             }
             UNION
@@ -55,7 +58,7 @@ export const useFetchSearch = (searchTerm: string) => {
                 ?ligue dbo:wikiPageID ?ligueID.
                 ?ligue dbo:thumbnail ?imgLigue.
                 ?linksPlayer dbo:wikiPageWikiLink ?ligue.
-                FILTER(regex(?ligueName,"${searchTerm}","i"))
+                FILTER(regex(?ligueName,"${regexSearch}","i"))
                 FILTER(lang(?ligueName)="en")
             }
         }

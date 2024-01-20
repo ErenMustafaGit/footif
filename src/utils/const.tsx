@@ -1,7 +1,8 @@
 import { CardProps } from "../components";
 import { TYPE } from "./enums";
 
-export const WIKIPEDIA_RESSOURCE_URL = "https://en.wikipedia.org/wiki/File:";
+export const WIKIPEDIA_RESSOURCE_URL =
+  "https://en.wikipedia.org/w/index.php?title=Special:Redirect/file/File:";
 
 export const INITIAL_DATA: CardProps[] = [
   {
