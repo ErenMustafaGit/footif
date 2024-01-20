@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useFetchTeamDetails } from "../../queries";
+import { useFetchTeamDetails, useFetchWikiIdFromRessource } from "../../queries";
 import {
   Image,
   Link,
@@ -19,17 +19,33 @@ export const Team = () => {
   const name = json?.name?.value;
   const thumbnail = json?.thumbnail?.value ?? "";
   const abstract = json?.abstract?.value ?? "N/A";
-  const coach = json?.coach?.value ?? "N/A";
-  const manager = json?.manager?.value ?? "N/A";
+  var coach = json?.coach?.value ?? "N/A";
+  if (coach.startsWith("http")) coach = coach.split("/").pop().replace("_", " "); // Not a player, no need to retrieve the wikiId
+  var manager = json?.manager?.value ?? "N/A";
+  if (manager.startsWith("http")) manager = manager.split("/").pop().replace("_", " "); // Not a player, no need to retrieve the wikiId
   const stadiumName = json?.stadiumName?.value ?? "N/A";
   const groundName = json?.groundName?.value ?? "N/A";
-  const captain = json?.captain?.value ?? "N/A";
-  const joueurName = json?.joueurName?.value ?? "N/A";
+  var captain = json?.captain?.value ?? "N/A";
+  var captainId = "";
+  if (captain.startsWith("http")) {
+    captain = captain.split("/").pop().replace("_", " ");
+    const { isLoading, data, error } = useFetchWikiIdFromRessource(captain);
+    captainId = data?.results?.bindings[0].wikiId?.value ?? "";
+  }
+  var joueurName = json?.joueurName?.value ?? "N/A";
+  var joueurId = "";
+  if (joueurName.startsWith("http")) {
+    joueurName = joueurName.split("/").pop().replace("_", " ");
+    const { isLoading, data, error } = useFetchWikiIdFromRessource(joueurName);
+    joueurId = data?.results?.bindings[0].wikiId?.value ?? "";
+  }
   const nickname = json?.nickname?.value ?? "N/A";
   const dateCreation = json?.dateCreation?.value ?? "N/A";
   const leagueID = json?.leagueID?.value ?? "N/A";
   const leagueName = json?.leagueName?.value ?? "N/A";
-  const president = json?.president?.value ?? "N/A";
+  var president = json?.president?.value ?? "N/A";
+  if (president.startsWith("http")) president = president.split("/").pop().replace("_", " "); // Not a player, no need to retrieve the wikiId
+  
 
   if (isLoading)
     return (
@@ -89,13 +105,13 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Captain
             </Heading>
-            <Link href={"/player/" + captain}>{captain}</Link>
+            {captainId !== "" ? <Link href={`/player/${captainId}`}>{captain}</Link> : <Text>{captain}</Text>}
           </Box>
           <Box id="joueur">
             <Heading size="sm" marginY={"8px"}>
               Joueur
             </Heading>
-            <Link href={"/player/" + joueurName}>{joueurName}</Link>
+            {joueurId !== "" ? <Link href={`/player/${joueurId}`}>{joueurName}</Link> : <Text>{joueurName}</Text>}
           </Box>
           <Box id="nickname">
             <Heading size="sm" marginY={"8px"}>

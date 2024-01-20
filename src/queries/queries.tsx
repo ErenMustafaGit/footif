@@ -100,6 +100,14 @@ export const useFetchPlayerDetails = (wikiId: string) => {
   );
 };
 
+export const useFetchWikiIdFromRessource = (ressourceName: string) => {
+  return useBaseQuery(
+    ["useFetchWikiIdFromRessource", ressourceName],
+    !!ressourceName,
+    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName}; dbo:wikiPageID ?wikiId. }`
+  );
+}
+
 export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchTeamrDetails"],
