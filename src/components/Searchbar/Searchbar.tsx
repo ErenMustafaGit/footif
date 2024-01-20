@@ -20,6 +20,7 @@ export const Searchbar = (props: SearchbarProps) => {
   return (
     <form onSubmit={handleSubmit} style={{ width: "100% " }}>
       <Input
+        color={"green.500"}
         placeholder={props.placeholder}
         onSubmit={() => console.log("heyy")}
         width={props.width}
