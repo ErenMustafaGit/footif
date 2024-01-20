@@ -94,6 +94,44 @@ export const useFetchPlayerDetails = (wikiId: string) => {
   );
 };
 
+export const useFetchTeamDetails = (wikiId: string) => {
+  return useBaseQuery(
+    ["fetchTeamrDetails"],
+    !!wikiId,
+    `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
+    WHERE
+    {
+      ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
+        rdfs:label ?name.
+        OPTIONAL {?club dbo:abstract ?abstract.
+          FILTER (lang(?abstract) = "fr").}
+        OPTIONAL {?club dbo:coach ?coach.}
+        OPTIONAL {?club dbo:manager ?manager.}
+        OPTIONAL {?club dbo:stadium ?stadium.
+          ?stadium rdfs:label ?stadiumName.
+          FILTER (lang(?stadiumName) = "en").}
+        OPTIONAL {?club dbo:ground ?ground.
+          ?ground rdfs:label ?groundName.
+          FILTER (lang(?groundName) = "en").}
+        OPTIONAL {?club dbp:captain ?captain.}
+        OPTIONAL {?club dbp:name ?joueur.
+          OPTIONAL {?joueur rdfs:label ?joueurNameTmp.
+            FILTER (lang(?joueurNameTmp) = "en")}
+          BIND(IF(BOUND(?joueurNameTmp), ?joueurNameTmp, ?joueur) AS ?joueurName)}
+        OPTIONAL {?club dbp:nickname ?nickname.
+          FILTER (lang(?nickname) = "en").
+          FILTER (strlen(?nickname) > 0).}
+        OPTIONAL {?club dbo:opened ?dateCreation.}
+        OPTIONAL {?club dbo:league ?league.
+          ?league dbo:wikiPageID ?leagueID;
+            rdfs:label ?leagueName.
+            FILTER (lang(?leagueName) = "en").}
+        OPTIONAL {?club dbo:chairman ?president.}
+      FILTER (lang(?name) = "en").
+    }`
+  );
+};
+
 export const useFetchTournamentDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails"],

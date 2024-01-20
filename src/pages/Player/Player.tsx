@@ -63,32 +63,46 @@ export const Player = () => {
           <Heading size="md" marginY={"8px"}>
             Informations
           </Heading>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Equipe Nationale : </Text>
-            <Text>{nationalteam}</Text>
+          <Box id="nationalteam">
+            <Heading size="sm" marginY={"8px"}>
+              Equipe nationale
+            </Heading>
+            <Link href={"/team/" + nationalteam}>{nationalteam}</Link>
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Position : </Text>
-            <Text>{positionname}</Text>
+          <Box id="positionname">
+            <Heading size="sm" marginY={"8px"}>
+              Poste
+            </Heading>
+            {positionname}
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Date de naissance : </Text>
-            <Text>{birthdate}</Text>
+          <Box id="birthdate">
+            <Heading size="sm" marginY={"8px"}>
+              Date de naissance
+            </Heading>
+            {birthdate}
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Lieu de naissance : </Text>
-            <Text>{birthplace}</Text>
+          <Box id="birthplace">
+            <Heading size="sm" marginY={"8px"}>
+              Lieu de naissance
+            </Heading>
+            {birthplace}
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Taille : </Text>
-            <Text>{height}</Text>
+          <Box id="height">
+            <Heading size="sm" marginY={"8px"}>
+              Taille
+            </Heading>
+            {height}
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Numéo : </Text>
-            <Text>{number}</Text>
+          <Box id="number">
+            <Heading size="sm" marginY={"8px"}>
+              Numéro
+            </Heading>
+            {number}
           </Box>
-          <Box display={"flex"} flexDirection={"row"}>
-            <Text fontWeight="bold">Club actuel : </Text>
+          <Box id="currentclub">
+            <Heading size="sm" marginY={"8px"}>
+              Club actuel
+            </Heading>
             <Link href={"/team/" + currentclubid}>{currentclubname}</Link>
           </Box>
           <Box id="clubs">
