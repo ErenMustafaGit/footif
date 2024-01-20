@@ -27,18 +27,14 @@ export const Team = () => {
   const groundName = json?.groundName?.value ?? "N/A";
   var captain = json?.captain?.value ?? "N/A";
   var captainId = "";
-  if (captain.startsWith("http")) {
-    captain = captain.split("/").pop().replace("_", " ");
-    const { isLoading, data, error } = useFetchWikiIdFromRessource(captain);
-    captainId = data?.results?.bindings[0].wikiId?.value ?? "";
-  }
+  if (captain.startsWith("http")) captain = captain.split("/").pop().replace("_", " ");
+  captainId = useFetchWikiIdFromRessource(captain).data?.results?.bindings[0].wikiId?.value ?? "N/A";
+  var joueur = json?.joueur?.value ?? "N/A";
+  if (joueur.startsWith("http")) joueur = joueur.split("/").pop();
   var joueurName = json?.joueurName?.value ?? "N/A";
   var joueurId = "";
-  if (joueurName.startsWith("http")) {
-    joueurName = joueurName.split("/").pop().replace("_", " ");
-    const { isLoading, data, error } = useFetchWikiIdFromRessource(joueurName);
-    joueurId = data?.results?.bindings[0].wikiId?.value ?? "";
-  }
+  if (joueurName.startsWith("http")) joueurName = joueurName.split("/").pop().replace("_", " ")
+  joueurId = useFetchWikiIdFromRessource(joueur).data?.results?.bindings[0].wikiId?.value ?? "N/A";
   const nickname = json?.nickname?.value ?? "N/A";
   const dateCreation = json?.dateCreation?.value ?? "N/A";
   const leagueID = json?.leagueID?.value ?? "N/A";
@@ -105,13 +101,13 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Captain
             </Heading>
-            {captainId !== "" ? <Link href={`/player/${captainId}`}>{captain}</Link> : <Text>{captain}</Text>}
+            {captainId === "N/A" ? <Text>{captain}</Text> : <Link href={`/player/${captainId}`}>{captain}</Link>}
           </Box>
           <Box id="joueur">
             <Heading size="sm" marginY={"8px"}>
               Joueur
             </Heading>
-            {joueurId !== "" ? <Link href={`/player/${joueurId}`}>{joueurName}</Link> : <Text>{joueurName}</Text>}
+            {joueurId === "N/A" ? <Text>{joueurName}</Text> : <Link href={`/player/${joueurId}`}>{joueurName}</Link>}
           </Box>
           <Box id="nickname">
             <Heading size="sm" marginY={"8px"}>
@@ -129,7 +125,7 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Ligue
             </Heading>
-            <Link href={"/tournament/" + leagueID}>{leagueName}</Link>
+            {leagueID === "N/A" ? <Text>{leagueName}</Text> : <Link href={"/tournament/" + leagueID}>{leagueName}</Link>}
           </Box>
           <Box id="president">
             <Heading size="sm" marginY={"8px"}>

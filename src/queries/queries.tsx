@@ -104,7 +104,7 @@ export const useFetchWikiIdFromRessource = (ressourceName: string) => {
   return useBaseQuery(
     ["useFetchWikiIdFromRessource", ressourceName],
     !!ressourceName,
-    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName}; dbo:wikiPageID ?wikiId. }`
+    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`
   );
 }
 
