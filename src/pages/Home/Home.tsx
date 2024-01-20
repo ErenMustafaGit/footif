@@ -5,7 +5,6 @@ import { useFetchSearch } from "../../queries";
 import {
   INITIAL_DATA,
   getType,
-  getWikipediaFilePath,
   getWikipediaThumbnail,
   orderByPopularity,
 } from "../../utils";

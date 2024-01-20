@@ -9,15 +9,19 @@ export const getType = (item: any): TYPE => {
 };
 
 export const getPopularity = (item: any): number => {
-  if (item.popularityPlayer?.value)
+  if (
+    item.popularityPlayer?.value &&
+    parseInt(item.popularityPlayer.value) !== 0
+  )
     return parseInt(item.popularityPlayer.value);
-  if (item.popularityClub?.value) return parseInt(item.popularityClub.value);
-  if (item.popularityLigue?.value) return parseInt(item.popularityLigue.value);
+  if (item.popularityClub?.value && parseInt(item.popularityClub.value) !== 0)
+    return parseInt(item.popularityClub.value);
+  if (item.popularityLigue?.value && parseInt(item.popularityLigue.value) !== 0)
+    return parseInt(item.popularityLigue.value);
   return 0;
 };
 
 export const orderByPopularity = (data: any) => {
-  console.log(data);
   return data.sort((a: any, b: any) => {
     return getPopularity(b) - getPopularity(a);
   });
