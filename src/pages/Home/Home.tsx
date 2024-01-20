@@ -2,7 +2,13 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
-import { INITIAL_DATA, getType, orderByPopularity } from "../../utils";
+import {
+  INITIAL_DATA,
+  getType,
+  getWikipediaFilePath,
+  getWikipediaThumbnail,
+  orderByPopularity,
+} from "../../utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -90,6 +96,7 @@ export const Home = () => {
                       item.ligueID?.value ??
                       "-1"
                     }
+                    icon={getWikipediaThumbnail(item)}
                   />
                 )
               )}

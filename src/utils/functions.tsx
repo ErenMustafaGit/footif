@@ -1,3 +1,4 @@
+import { WIKIPEDIA_RESSOURCE_URL } from "./const";
 import { TYPE } from "./enums";
 
 export const getType = (item: any): TYPE => {
@@ -20,4 +21,24 @@ export const orderByPopularity = (data: any) => {
   return data.sort((a: any, b: any) => {
     return getPopularity(b) - getPopularity(a);
   });
+};
+// Function for Export FilePath from http://commons.wikimedia.org/wiki/Special:FilePath/Henri_Scharry_(1928).jpg?width=300
+export const getWikipediaFilePath = (filePathUrl: any): string => {
+  const regex = /[^\/]+(?=\?width)/;
+  const match = filePathUrl.match(regex);
+  if (match && match[0]) {
+    return match[0];
+  }
+  return "";
+};
+
+export const getWikipediaThumbnail = (item: any): string => {
+  let thumbnail = "";
+  if (item.imgPlayer?.value) thumbnail = item.imgPlayer.value;
+  if (item.imgClub?.value) thumbnail = item.imgClub.value;
+  if (item.imgLigue?.value) thumbnail = item.imgLigue.value;
+
+  return `https://en.wikipedia.org/w/index.php?title=Special:Redirect/file/File:${getWikipediaFilePath(
+    thumbnail
+  )}`;
 };

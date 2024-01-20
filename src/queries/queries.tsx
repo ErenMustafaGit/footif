@@ -25,14 +25,15 @@ export const useFetchSearch = (searchTerm: string) => {
     ["fetchSearch", searchTerm],
     !!searchTerm,
     `
-        SELECT DISTINCT ?playerID, ?playerName, COUNT(?linksPlayer) AS ?popularityPlayer, ?clubID, ?clubName, COUNT(?linksClub) AS ?popularityClub, ?ligueID, ?ligueName, COUNT(?linksLigue) AS ?popularityLigue
-        WHERE
+      SELECT DISTINCT ?imgPlayer, ?imgClub, ?imgLigue, ?playerID, ?playerName, COUNT(?linksPlayer) AS ?popularityPlayer, ?clubID, ?clubName, COUNT(?linksClub) AS ?popularityClub, ?ligue, ?ligueID, ?ligueName, COUNT(?linksLigue) AS ?popularityLigue
+      WHERE
         {
             {
                 ?player rdf:type dbo:SoccerPlayer, dbo:Person.
                 ?player rdfs:label ?playerName.
                 ?player dbo:wikiPageID ?playerID.
                 ?linksPlayer dbo:wikiPageWikiLink ?player.
+                ?player dbo:thumbnail ?imgPlayer.
                 FILTER(regex(?playerName,"${searchTerm}","i"))
                 FILTER(lang(?playerName)="en")
             }
@@ -42,6 +43,7 @@ export const useFetchSearch = (searchTerm: string) => {
                 ?club rdfs:label ?clubName.
                 ?club dbo:wikiPageID ?clubID.
                 ?linksClub dbo:wikiPageWikiLink ?club.
+                ?club dbo:thumbnail ?imgClub.
                 FILTER(!regex(?club, "futsal|Rugby|beach_soccer", "i"))
                 FILTER(regex(?clubName,"${searchTerm}","i"))
                 FILTER(lang(?clubName)="en")
@@ -51,6 +53,7 @@ export const useFetchSearch = (searchTerm: string) => {
                 ?ligue rdf:type dbo:SoccerLeague.
                 ?ligue rdfs:label ?ligueName.
                 ?ligue dbo:wikiPageID ?ligueID.
+                ?ligue dbo:thumbnail ?imgLigue.
                 ?linksPlayer dbo:wikiPageWikiLink ?ligue.
                 FILTER(regex(?ligueName,"${searchTerm}","i"))
                 FILTER(lang(?ligueName)="en")
