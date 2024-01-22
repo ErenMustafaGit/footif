@@ -107,6 +107,7 @@ export const useFetchWikiIdFromRessource = (ressourceName: string) => {
     !!ressourceName,
     `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. } LIMIT 1`
   );
+  // We could add a UNION to also search for label or name
 }
 
 export const useFetchTeamDetails = (wikiId: string) => {
@@ -116,7 +117,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
     `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
     WHERE
     {
-      ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
+      ?club dbo:wikiPageID "1082929"^^xsd:integer;
         rdfs:label ?name.
         OPTIONAL {?club dbo:abstract ?abstract.
           FILTER (lang(?abstract) = "fr").}
@@ -151,24 +152,21 @@ export const useFetchTournamentDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails"],
     !!wikiId,
-    `SELECT DISTINCT ?id ?name ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number WHERE {
-      ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
-        dbo:wikiPageID ?id; rdfs:label ?name.
-      OPTIONAL {?player dbp:nationalteam ?nationalteam.}
-      OPTIONAL {?nationalteam dbo:wikiPageID ?nationalteamid; 
-                  rdfs:label ?nationalteamname.}
-      OPTIONAL {?player dbp:position ?position.}
-      OPTIONAL {?position rdfs:label ?positionname.}
-      OPTIONAL {?player dbo:birthDate ?datebirth.}
-      OPTIONAL {?player dbo:birthPlace ?placebirth.}
-      OPTIONAL {?placebirth dbp:name ?placebirthname.}
-      OPTIONAL {?player dbo:height ?height.}
-      OPTIONAL {?player dbp:currentnumber ?number.}
-      FILTER (lang(?name) = 'en').
-      FILTER (lang(?nationalteamname) = 'en').
-      FILTER (lang(?positionname) = 'fr').
-      FILTER (lang(?placebirthname) = 'en').
-      FILTER(!regex(?nationalteamname, "under", "i")).
-    } LIMIT 1`
+    `SELECT DISTINCT ?name, ?abstract, ?thumbnail, ?champions, ?mostappearances, ?mostsuccessfulclub, ?promotion, ?relegation, ?topgoalscorerWHERE
+    {
+      ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
+      rdfs:label ?name.
+      OPTIONAL {?club dbo:abstract ?abstract.}
+      OPTIONAL {?club dbo:thumbnail ?thumbnail.}
+      OPTIONAL {?club dbp:champion ?champions.}
+      OPTIONAL {?club dbp:mostAppearances ?mostappearanceslink. ?mostappearanceslink rdfs:label ?mostappearances}
+      OPTIONAL {?club dbp:mostSuccessfulClub ?mostsuccessfulclub.}
+      OPTIONAL {?club dbp:promotion ?promotion.}
+      OPTIONAL {?club dbp:relegation ?relegation.}
+      OPTIONAL {?club dbp:topGoalscorer ?topgoalscorer.}
+      FILTER (lang(?name) = "en").
+      FILTER (lang(?abstract) = "fr").
+    }
+    LIMIT 1`
   );
 };
