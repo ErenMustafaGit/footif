@@ -101,10 +101,11 @@ export const useFetchPlayerDetails = (wikiId: string) => {
 };
 
 export const useFetchWikiIdFromRessource = (ressourceName: string) => {
+  console.log(`SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`);
   return useBaseQuery(
     ["useFetchWikiIdFromRessource", ressourceName],
     !!ressourceName,
-    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`
+    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. } LIMIT 1`
   );
 }
 
@@ -112,7 +113,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchTeamrDetails"],
     !!wikiId,
-    `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
+    `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
     WHERE
     {
       ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
@@ -142,7 +143,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
             FILTER (lang(?leagueName) = "en").}
         OPTIONAL {?club dbo:chairman ?president.}
       FILTER (lang(?name) = "en").
-    }`
+    } LIMIT 1`
   );
 };
 
@@ -150,6 +151,24 @@ export const useFetchTournamentDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails"],
     !!wikiId,
-    `SELECT DISTINCT ?id ?name ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number WHERE { ?player dbo:wikiPageID '${wikiId}'^^xsd:integer; dbo:wikiPageID ?id; rdfs:label ?name. OPTIONAL {?player dbp:nationalteam ?nationalteam.} OPTIONAL {?nationalteam dbo:wikiPageID ?nationalteamid; rdfs:label ?nationalteamname.} OPTIONAL {?player dbp:position ?position.} OPTIONAL {?position rdfs:label ?positionname.} OPTIONAL {?player dbo:birthDate ?datebirth.} OPTIONAL {?player dbo:birthPlace ?placebirth.} OPTIONAL {?placebirth dbp:name ?placebirthname.} OPTIONAL {?player dbo:height ?height.} OPTIONAL {?player dbp:currentnumber ?number.} FILTER (lang(?name) = 'en'). FILTER (lang(?nationalteamname) = 'en'). FILTER (lang(?positionname) = 'fr'). FILTER (lang(?placebirthname) = 'en'). FILTER(!regex(?nationalteamname, "under", "i")). } LIMIT 1';`
+    `SELECT DISTINCT ?id ?name ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number WHERE {
+      ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
+        dbo:wikiPageID ?id; rdfs:label ?name.
+      OPTIONAL {?player dbp:nationalteam ?nationalteam.}
+      OPTIONAL {?nationalteam dbo:wikiPageID ?nationalteamid; 
+                  rdfs:label ?nationalteamname.}
+      OPTIONAL {?player dbp:position ?position.}
+      OPTIONAL {?position rdfs:label ?positionname.}
+      OPTIONAL {?player dbo:birthDate ?datebirth.}
+      OPTIONAL {?player dbo:birthPlace ?placebirth.}
+      OPTIONAL {?placebirth dbp:name ?placebirthname.}
+      OPTIONAL {?player dbo:height ?height.}
+      OPTIONAL {?player dbp:currentnumber ?number.}
+      FILTER (lang(?name) = 'en').
+      FILTER (lang(?nationalteamname) = 'en').
+      FILTER (lang(?positionname) = 'fr').
+      FILTER (lang(?placebirthname) = 'en').
+      FILTER(!regex(?nationalteamname, "under", "i")).
+    } LIMIT 1`
   );
 };

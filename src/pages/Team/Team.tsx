@@ -27,8 +27,9 @@ export const Team = () => {
   const groundName = json?.groundName?.value ?? "N/A";
   var captain = json?.captain?.value ?? "N/A";
   var captainId = "";
-  if (captain.startsWith("http")) captain = captain.split("/").pop().replace("_", " ");
+  if (captain.startsWith("http")) captain = captain.split("/").pop();
   captainId = useFetchWikiIdFromRessource(captain).data?.results?.bindings[0].wikiId?.value ?? "N/A";
+  captain = captain.replace("_", " ");
   var joueur = json?.joueur?.value ?? "N/A";
   if (joueur.startsWith("http")) joueur = joueur.split("/").pop();
   var joueurName = json?.joueurName?.value ?? "N/A";
