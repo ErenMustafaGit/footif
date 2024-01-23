@@ -213,3 +213,30 @@ export const useFetchTournamentDetails = (wikiId: string) => {
     LIMIT 1`
   );
 };
+
+export const useFetchResurrection = (wikiId: string) => {
+  return useBaseQuery(
+    ["fetchResurrection", wikiId],
+    !!wikiId,
+    `
+      SELECT DISTINCT ?joueurName, ?birthDate,
+      ?reincarnName, ?abstractReincarn, ?deathDate, ?urlThumbnailReincarn, count(?linksReincarn) AS ?popularity
+      WHERE
+      {
+        ?joueur dbo:wikiPageID "${wikiId}"^^xsd:integer;
+          rdfs:label ?joueurName;
+          dbo:birthDate ?birthDate.
+        ?reincarn dbo:deathDate ?deathDate;
+          dbo:abstract ?abstractReincarn;
+          dbo:thumbnail ?urlThumbnailReincarn;
+          rdfs:label ?reincarnName.
+        ?linksReincarn dbo:wikiPageWikiLink ?reincarn.
+        FILTER (lang(?joueurName) = "en")
+        FILTER (lang(?reincarnName) = "en")
+        FILTER (lang(?abstractReincarn) = "en")
+        FILTER (?deathDate = ?birthDate)
+      }
+      order by DESC(count(?linksReincarn))
+    `
+  );
+};

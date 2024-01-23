@@ -144,7 +144,7 @@ export const Player = () => {
           <Heading size="xl">
             <Text textAlign="justify">{name}</Text>
           </Heading>
-          <RessurectionModal />
+          <RessurectionModal wikiId={wikiId} />
         </Box>
         <Text textAlign="justify">{abstract}</Text>
       </Box>

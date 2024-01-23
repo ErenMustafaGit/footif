@@ -82,3 +82,7 @@ export const getRegexSearch = (searchTerm: string) => {
   }
   return createRegex(searchTerm);
 };
+
+export const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
