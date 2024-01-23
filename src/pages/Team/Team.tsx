@@ -76,7 +76,7 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Coach
             </Heading>
-            <Link href={"/player/" + coach}>{coach}</Link>
+            <Text>{coach}</Text>
           </Box>
           <Box id="manager">
             <Heading size="sm" marginY={"8px"}>

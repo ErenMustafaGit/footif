@@ -78,7 +78,7 @@ export const useFetchPlayerDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
+    `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?nationalteamid ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
     WHERE
     {
       ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
@@ -96,28 +96,30 @@ export const useFetchPlayerDetails = (wikiId: string) => {
       OPTIONAL {?player dbo:thumbnail ?photo.}
       FILTER (lang(?name) = "en").
     }
-    GROUP BY ?player ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?number ?height ?datebirth ?placebirthname ?currentclubid ?currentclubname ?photo`
+    GROUP BY ?player ?name ?thumbnail ?abstract ?nationalteamname ?nationalteamid ?positionname ?number ?height ?datebirth ?placebirthname ?currentclubid ?currentclubname ?photo`
   );
 };
 
 export const useFetchWikiIdFromRessource = (ressourceName: string) => {
-  console.log(`SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`);
+  console.log(
+    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`
+  );
   return useBaseQuery(
     ["useFetchWikiIdFromRessource", ressourceName],
     !!ressourceName,
     `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. } LIMIT 1`
   );
   // We could add a UNION to also search for label or name
-}
+};
 
 export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchTeamrDetails"],
+    ["fetchTeamrDetails", wikiId],
     !!wikiId,
     `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
     WHERE
     {
-      ?club dbo:wikiPageID "1082929"^^xsd:integer;
+      ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
         rdfs:label ?name.
         OPTIONAL {?club dbo:abstract ?abstract.
           FILTER (lang(?abstract) = "fr").}
@@ -144,13 +146,13 @@ export const useFetchTeamDetails = (wikiId: string) => {
             FILTER (lang(?leagueName) = "en").}
         OPTIONAL {?club dbo:chairman ?president.}
       FILTER (lang(?name) = "en").
-    } LIMIT 1`
+    }`
   );
 };
 
 export const useFetchTournamentDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchPlayerDetails"],
+    ["fetchPlayerDetails", wikiId],
     !!wikiId,
     `SELECT DISTINCT ?name, ?abstract, ?thumbnail, ?champions, ?mostappearances, ?mostsuccessfulclub, ?promotion, ?relegation, ?topgoalscorerWHERE
     {

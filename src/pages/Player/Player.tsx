@@ -20,6 +20,7 @@ export const Player = () => {
   const thumbnail = json?.thumbnail?.value ?? "";
   const abstract = json?.abstract?.value ?? "N/A";
   const nationalteam = json?.nationalteamname?.value ?? "N/A";
+  const nationalteamid = json?.nationalteamid?.value ?? "N/A";
   const positionname = json?.positionname?.value ?? "N/A";
   const birthdate = json?.datebirth?.value ?? "N/A";
   const birthplace = json?.placebirthname?.value ?? "N/A";
@@ -66,7 +67,7 @@ export const Player = () => {
             <Heading size="sm" marginY={"8px"}>
               Equipe nationale
             </Heading>
-            <Link href={"/team/" + nationalteam}>{nationalteam}</Link>
+            <Link href={"/team/" + nationalteamid}>{nationalteam}</Link>
           </Box>
           <Box id="positionname">
             <Heading size="sm" marginY={"8px"}>
