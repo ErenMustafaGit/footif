@@ -122,7 +122,9 @@ export const useFetchTeamDetails = (wikiId: string) => {
       ?urlThumbnailCoach, ?coachName,
       ?urlThumbnailManager, ?managerName,
       ?urlThumbnailCaptain, ?captainName,
-      ?leagueID, ?leagueName
+      ?leagueID, ?leagueName,
+      GROUP_CONCAT(?joueurName; SEPARATOR=",") AS ?joueursNames,
+      GROUP_CONCAT(?idJoueur; SEPARATOR=",") AS ?joueursIds
     WHERE
     {
       ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;

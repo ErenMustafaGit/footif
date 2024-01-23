@@ -13,6 +13,7 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { Link } from "../../components";
+import { Key } from "react";
 import { getWikipediaThumbnail } from "../../utils";
 
 export const Team = () => {
@@ -37,14 +38,10 @@ export const Team = () => {
     useFetchWikiIdFromRessource(captain).data?.results?.bindings[0].wikiId
       ?.value ?? "N/A";
   captain = captain.replace("_", " ");
-  var joueur = json?.joueur?.value ?? "N/A";
-  if (joueur.startsWith("http")) joueur = joueur.split("/").pop();
-  var joueurName = json?.joueurName?.value ?? "N/A";
-  if (joueurName.startsWith("http"))
-    joueurName = joueurName.split("/").pop().replace("_", " ");
-  const joueurId =
-    useFetchWikiIdFromRessource(joueur).data?.results?.bindings[0].wikiId
-      ?.value ?? "N/A";
+  const joueursIds = json?.joueursIds?.value ?? "";
+  const joueursNames = json?.joueursNames?.value ?? "";
+  const joueurIdsArray = joueursIds.split(",");
+  const joueurNamesArray = joueursNames.split(",");
   const nickname = json?.nickname?.value ?? "N/A";
   const dateCreation = json?.dateCreation?.value ?? "N/A";
   const leagueID = json?.leagueID?.value ?? "N/A";
@@ -117,15 +114,15 @@ export const Team = () => {
               <Link href={`/player/${captainId}`}>{captain}</Link>
             )}
           </Box>
-          <Box id="joueur">
+          <Box id="joueurs">
             <Heading size="sm" marginY={"8px"}>
-              Joueur
+              Joueurs
             </Heading>
-            {joueurId === "N/A" ? (
-              <Text>{joueurName}</Text>
-            ) : (
-              <Link href={`/player/${joueurId}`}>{joueurName}</Link>
-            )}
+            {joueurIdsArray.map((joueurId: Key, index: string | number) => (
+              <Box key={joueurId}>
+                {joueurId === "N/A" ? <Text>{joueurNamesArray[index]}</Text> : <Link href={`/team/${joueurId}`}>{joueurNamesArray[index]}</Link>}
+              </Box>
+            ))}
           </Box>
           <Box id="nickname">
             <Heading size="sm" marginY={"8px"}>
