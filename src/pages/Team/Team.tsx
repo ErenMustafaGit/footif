@@ -20,6 +20,7 @@ export const Team = () => {
   const { wikiId } = useParams();
   const { isLoading, data, error } = useFetchTeamDetails(wikiId ?? "");
   const json = data?.results?.bindings[0];
+  console.log(json);
   const name = json?.name?.value;
   const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const abstract = json?.abstract?.value ?? "N/A";
@@ -33,9 +34,9 @@ export const Team = () => {
     useFetchWikiIdFromRessource(captain).data?.results?.bindings[0].wikiId
       ?.value ?? "N/A";
   captain = captain.replace("_", " ");
-  const joueursIds = json?.joueursIds?.value ?? "";
-  const joueursNames = json?.joueursNames?.value ?? "";
-  const joueurIdsArray = joueursIds.split("=");
+  const idsJoueur = json?.idsJoueur?.value ?? "";
+  const joueursNames = json?.joueurNames?.value ?? "";
+  const joueurIdsArray = idsJoueur.split("=");
   const joueurNamesArray = joueursNames.split("=");
   const nicknames = json?.nicknames?.value ?? "";
   const nicknamesArray = nicknames.split("=");
@@ -114,9 +115,9 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Joueurs
             </Heading>
-            {joueurIdsArray.map((joueurId: Key, index: string | number) => (
-              <Box key={joueurId}>
-                {joueurId === "N/A" ? <Text>{joueurNamesArray[index]}</Text> : <Link href={`/player/${joueurId}`}>{joueurNamesArray[index]}</Link>}
+            {joueurNamesArray.map((joueurName: string, index: string | number) => (
+              <Box key={joueurName}>
+                {joueurIdsArray[index] === undefined ? <Text>{joueurName.startsWith("http") ? joueurName.split("/").pop()?.replace("_"," ") : joueurName}</Text> : <Link href={`/player/${joueurIdsArray[index]}`}>{joueurName}</Link>}
               </Box>
             ))}
           </Box>

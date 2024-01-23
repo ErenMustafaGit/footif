@@ -116,24 +116,21 @@ export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchTeamrDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name, ?stadiumName, ?groundName, ?dateCreation, ?abstract,
-    ?urlThumbnailpresident, ?managerName, ?thumbnail,
+    `SELECT DISTINCT ?name, ?abstract, ?stadiumName, ?groundName, ?dateCreation,
+    ?urlThumbnailpresident, ?presidentName,
     ?urlThumbnailCoach, ?coachName,
-    ?urlThumbnailManager,
-    ?urlThumbnailCaptain,
-    ?leagueID, ?leagueName,
-    GROUP_CONCAT(distinct ?joueurName; SEPARATOR="=") AS ?joueursNames,
-    GROUP_CONCAT(distinct ?idJoueur; SEPARATOR="=") AS ?joueursIds,
+    ?urlThumbnailManager, ?managerName,
+    ?urlThumbnailCaptain, ?captainName,
+    GROUP_CONCAT(?idJoueur; SEPARATOR="=") AS ?idsJoueur,
+    GROUP_CONCAT(?joueurName; SEPARATOR="=") AS ?joueurNames,
     GROUP_CONCAT(distinct ?nickname; SEPARATOR="=") AS ?nicknames,
-    GROUP_CONCAT(distinct ?captainName; SEPARATOR="=") AS ?captainNames,
-    GROUP_CONCAT(distinct ?idCaptain; SEPARATOR="=") AS ?captainIds,
-    GROUP_CONCAT(distinct ?presidentName; SEPARATOR="=") AS ?presidentNames
+    ?leagueID, ?leagueName
   WHERE
   {
     ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
       rdfs:label ?name.
     FILTER (lang(?name) = "en")
-      OPTIONAL {?club dbo:thumbnail ?thumbnail.}
+
       OPTIONAL {?club dbo:abstract ?abstract.
         FILTER (lang(?abstract) = "en")}
 
@@ -149,7 +146,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
         FILTER (lang(?nickname) = "en")
         FILTER (strlen(?nickname) > 0)}
 
-      OPTIONAL {?club dbo:opened ?dateCreation.}
+OPTIONAL {?club dbo:opened ?dateCreation.}
 
       OPTIONAL {?club dbo:chairman ?president.
         OPTIONAL {?president rdfs:label ?presidentNameTmp;
@@ -178,7 +175,6 @@ export const useFetchTeamDetails = (wikiId: string) => {
 
       OPTIONAL {?club dbp:captain ?captain.
         OPTIONAL {?captain rdfs:label ?captainNameTmp;
-          dbo:wikiPageID ?idCaptain;
           dbo:thumbnail ?urlThumbnailCaptain.
           FILTER (lang(?captainNameTmp) = "en")}
         BIND(IF(BOUND(?captainNameTmp), ?captainNameTmp, ?captain) AS ?captainName)}
