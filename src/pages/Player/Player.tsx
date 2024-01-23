@@ -8,12 +8,11 @@ import {
   Spinner,
   Flex,
   Skeleton,
-  Button,
 } from "@chakra-ui/react";
 import { Key } from "react";
 import { Link } from "../../components";
 import { getWikipediaThumbnail } from "../../utils";
-import { Skull } from "lucide-react";
+import { RessurectionModal } from "../../components/Modal";
 
 export const Player = () => {
   const { wikiId } = useParams();
@@ -145,10 +144,7 @@ export const Player = () => {
           <Heading size="xl">
             <Text textAlign="justify">{name}</Text>
           </Heading>
-          <Button colorScheme="red" size="sm" gap={1}>
-            <Text textAlign="justify">Résurrection</Text>
-            <Skull />
-          </Button>
+          <RessurectionModal />
         </Box>
         <Text textAlign="justify">{abstract}</Text>
       </Box>
