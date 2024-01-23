@@ -78,7 +78,7 @@ export const useFetchPlayerDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchPlayerDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
+    `SELECT DISTINCT ?name ?thumbnail ?abstract ?nationalteamname ?nationalteamid ?positionname ?datebirth ?placebirthname ?height ?number ?currentclubid ?currentclubname GROUP_CONCAT(?clubname; SEPARATOR=",") AS ?clubsnames GROUP_CONCAT(?clubid; SEPARATOR=",") AS ?clubsids ?photo
     WHERE
     {
       ?player dbo:wikiPageID "${wikiId}"^^xsd:integer;
@@ -96,7 +96,7 @@ export const useFetchPlayerDetails = (wikiId: string) => {
       OPTIONAL {?player dbo:thumbnail ?photo.}
       FILTER (lang(?name) = "en").
     }
-    GROUP BY ?player ?name ?thumbnail ?abstract ?nationalteamname ?positionname ?number ?height ?datebirth ?placebirthname ?currentclubid ?currentclubname ?photo`
+    GROUP BY ?player ?name ?thumbnail ?abstract ?nationalteamname ?nationalteamid ?positionname ?number ?height ?datebirth ?placebirthname ?currentclubid ?currentclubname ?photo`
   );
 };
 
