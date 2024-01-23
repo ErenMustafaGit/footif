@@ -117,7 +117,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
     `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
     WHERE
     {
-      ?club dbo:wikiPageID "1082929"^^xsd:integer;
+      ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
         rdfs:label ?name.
         OPTIONAL {?club dbo:abstract ?abstract.
           FILTER (lang(?abstract) = "fr").}
@@ -144,7 +144,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
             FILTER (lang(?leagueName) = "en").}
         OPTIONAL {?club dbo:chairman ?president.}
       FILTER (lang(?name) = "en").
-    } LIMIT 1`
+    }`
   );
 };
 
