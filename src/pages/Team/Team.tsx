@@ -40,9 +40,10 @@ export const Team = () => {
   captain = captain.replace("_", " ");
   const joueursIds = json?.joueursIds?.value ?? "";
   const joueursNames = json?.joueursNames?.value ?? "";
-  const joueurIdsArray = joueursIds.split(",");
-  const joueurNamesArray = joueursNames.split(",");
-  const nickname = json?.nickname?.value ?? "N/A";
+  const joueurIdsArray = joueursIds.split("=");
+  const joueurNamesArray = joueursNames.split("=");
+  const nicknames = json?.nicknames?.value ?? "";
+  const nicknamesArray = nicknames.split("=");
   const dateCreation = json?.dateCreation?.value ?? "N/A";
   const leagueID = json?.leagueID?.value ?? "N/A";
   const leagueName = json?.leagueName?.value ?? "N/A";
@@ -128,7 +129,11 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Surnom
             </Heading>
-            <Text>{nickname}</Text>
+            {nicknamesArray.map((nickname: Key, index: string | number) => (
+              <Box key={nickname}>
+                <Text>{nicknamesArray[index]}</Text>
+              </Box>
+            ))}
           </Box>
           <Box id="dateCreation">
             <Heading size="sm" marginY={"8px"}>
