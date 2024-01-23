@@ -67,7 +67,7 @@ export const Player = () => {
             <Heading size="sm" marginY={"8px"}>
               Equipe nationale
             </Heading>
-            <Link href={"/team/" + nationalteamid}>{nationalteam}</Link>
+            {nationalteamid === "N/A" ? <Text>{nationalteamid}</Text> : <Link href={`/team/${nationalteamid}`}>{nationalteam}</Link>}
           </Box>
           <Box id="positionname">
             <Heading size="sm" marginY={"8px"}>
@@ -103,7 +103,7 @@ export const Player = () => {
             <Heading size="sm" marginY={"8px"}>
               Club actuel
             </Heading>
-            <Link href={"/team/" + currentclubid}>{currentclubname}</Link>
+            {currentclubid === "N/A" ? <Text>{currentclubid}</Text> : <Link href={`/team/${currentclubid}`}>{currentclubname}</Link>}
           </Box>
           <Box id="clubs">
             <Heading size="md" marginY={"8px"}>
@@ -111,7 +111,7 @@ export const Player = () => {
             </Heading>
             {clubsidsArray.map((clubId: Key, index: string | number) => (
               <Box key={clubId}>
-                <Link href={"/team/" + clubId}>{clubsnamesArray[index]}</Link>
+                {clubId === "N/A" ? <Text>{clubsnamesArray[index]}</Text> : <Link href={`/team/${clubId}`}>{clubsnamesArray[index]}</Link>}
               </Box>
             ))}
           </Box>
