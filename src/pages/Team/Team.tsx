@@ -21,7 +21,7 @@ export const Team = () => {
   const json = data?.results?.bindings[0];
   console.log(json);
   const name = json?.name?.value;
-  const thumbnail = getWikipediaThumbnail(json);
+  const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const abstract = json?.abstract?.value ?? "N/A";
   var coach = json?.coach?.value ?? "N/A";
   if (coach.startsWith("http"))

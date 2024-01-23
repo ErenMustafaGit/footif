@@ -13,7 +13,7 @@ export const Tournament = () => {
   const json = data?.results?.bindings[0];
   const name = json?.name?.value ?? "N/A";
   const abstract = json?.abstract?.value ?? "N/A";
-  const thumbnail = getWikipediaThumbnail(json);
+  const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const champions = json?.champions?.value ?? "N/A";
   const mostappearances = json?.mostappearances?.value ?? "N/A";
   var mostsuccessfulclub = json?.mostsuccessfulclub?.value ?? "N/A";
