@@ -48,6 +48,9 @@ export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
         transitionDuration: "0.2s",
         transitionTimingFunction: "ease-in-out",
       }}
+      style={{
+        cursor: "pointer",
+      }}
     >
       <Image
         objectFit="cover"

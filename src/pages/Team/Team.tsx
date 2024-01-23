@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { useFetchTeamDetails, useFetchWikiIdFromRessource } from "../../queries";
 import {
   Image,
-  Link,
   Heading,
   Box,
   Text,
@@ -10,6 +9,7 @@ import {
   Flex,
   Skeleton,
 } from "@chakra-ui/react";
+import { Link } from "../../components";
 
 export const Team = () => {
   const { wikiId } = useParams();

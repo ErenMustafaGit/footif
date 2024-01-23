@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { useFetchTournamentDetails, useFetchWikiIdFromRessource } from "../../queries/queries";
-import { Image, Heading, Box, Text, Flex, Spinner, Link } from "@chakra-ui/react";
+import { Image, Heading, Box, Text, Flex, Spinner } from "@chakra-ui/react";
+import { Link } from "../../components";
 
 export const Tournament = () => {
   const { wikiId } = useParams();

@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { useFetchPlayerDetails } from "../../queries/queries";
 import {
   Image,
-  Link,
   Heading,
   Box,
   Text,
@@ -11,12 +10,12 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { Key } from "react";
+import { Link } from "../../components";
 
 export const Player = () => {
   const { wikiId } = useParams();
   const { isLoading, data, error } = useFetchPlayerDetails(wikiId ?? "");
   const json = data?.results?.bindings[0];
-  console.log(json);
   const name = json?.name?.value;
   const thumbnail = json?.thumbnail?.value ?? "";
   const abstract = json?.abstract?.value ?? "N/A";
