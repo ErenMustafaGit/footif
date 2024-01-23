@@ -25,7 +25,6 @@ export const Tournament = () => {
     useFetchWikiIdFromRessource(mostsuccessfulclub).data?.results?.bindings[0]
       .wikiId?.value ?? "N/A";
   mostsuccessfulclub = mostsuccessfulclub.replace("_", " ");
-  console.log("mostSuccessfulClubId", mostSuccessfulClubId);
   var promotion = json?.promotion?.value ?? "N/A";
   if (promotion.startsWith("http")) promotion = promotion.split("/").pop();
   const promotionId =
@@ -45,8 +44,6 @@ export const Tournament = () => {
     useFetchWikiIdFromRessource(topgoalscorer).data?.results?.bindings[0].wikiId
       ?.value ?? "N/A";
   topgoalscorer = topgoalscorer.replace("_", " ");
-
-  console.log("data", data);
 
   if (isLoading)
     return (

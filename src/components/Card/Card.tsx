@@ -16,10 +16,7 @@ export interface CardProps {
 export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
   const navigator = useNavigate();
 
-  console.log("icon", icon);
-
   const handleClick = () => {
-    console.log(title);
     switch (type) {
       case TYPE.PLAYER:
         navigator(`/player/${wikiId}`);

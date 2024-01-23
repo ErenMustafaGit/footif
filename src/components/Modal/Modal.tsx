@@ -39,7 +39,6 @@ export const RessurectionModal = ({ wikiId }: { wikiId?: string }) => {
 
   const person = json[getRandomNumber(0, json.length)];
 
-  console.log("person", person);
   const name = person?.reincarnName?.value ?? "N/A";
   const abstract = person?.abstractReincarn?.value ?? "";
   const thumbnail = person?.urlThumbnailReincarn?.value

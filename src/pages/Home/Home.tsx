@@ -22,13 +22,7 @@ export const Home = () => {
     queryClient.resetQueries({ queryKey: ["fetchSearch"] });
   };
 
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  useEffect(() => {}, [search]);
 
   if (error) return <Text>{error.message}</Text>;
 
