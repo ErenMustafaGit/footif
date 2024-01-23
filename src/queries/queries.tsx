@@ -101,18 +101,20 @@ export const useFetchPlayerDetails = (wikiId: string) => {
 };
 
 export const useFetchWikiIdFromRessource = (ressourceName: string) => {
-  console.log(`SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`);
+  console.log(
+    `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. }`
+  );
   return useBaseQuery(
     ["useFetchWikiIdFromRessource", ressourceName],
     !!ressourceName,
     `SELECT DISTINCT ?wikiId WHERE { dbr:${ressourceName} dbo:wikiPageID ?wikiId. } LIMIT 1`
   );
   // We could add a UNION to also search for label or name
-}
+};
 
 export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchTeamrDetails"],
+    ["fetchTeamrDetails", wikiId],
     !!wikiId,
     `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
     WHERE
@@ -150,7 +152,7 @@ export const useFetchTeamDetails = (wikiId: string) => {
 
 export const useFetchTournamentDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchPlayerDetails"],
+    ["fetchPlayerDetails", wikiId],
     !!wikiId,
     `SELECT DISTINCT ?name, ?abstract, ?thumbnail, ?champions, ?mostappearances, ?mostsuccessfulclub, ?promotion, ?relegation, ?topgoalscorerWHERE
     {
