@@ -38,9 +38,13 @@ export const getWikipediaFilePath = (filePathUrl: any): string => {
 
 export const getWikipediaThumbnail = (item: any): string => {
   let thumbnail = "";
+  console.log("item", item);
+  if (item.thumbnail?.value) thumbnail = item.thumbnail.value;
   if (item.imgPlayer?.value) thumbnail = item.imgPlayer.value;
   if (item.imgClub?.value) thumbnail = item.imgClub.value;
   if (item.imgLigue?.value) thumbnail = item.imgLigue.value;
+
+  if (!thumbnail) return "";
 
   return WIKIPEDIA_RESSOURCE_URL + getWikipediaFilePath(thumbnail);
 };

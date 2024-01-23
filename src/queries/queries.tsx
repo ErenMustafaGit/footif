@@ -116,36 +116,71 @@ export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchTeamrDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name, ?abstract, ?coach, ?manager, ?stadiumName, ?groundName, ?captain, ?joueur, ?joueurName, ?nickname, ?dateCreation, ?leagueID, ?leagueName, ?president
+    `SELECT DISTINCT ?name, ?abstract, ?stadiumName, ?groundName, ?nickname, ?dateCreation,
+      ?urlThumbnailpresident, ?presidentName, ?thumbnail,
+      ?idJoueur, ?urlThumbnailJoueur, ?joueurName,
+      ?urlThumbnailCoach, ?coachName,
+      ?urlThumbnailManager, ?managerName,
+      ?urlThumbnailCaptain, ?captainName,
+      ?leagueID, ?leagueName
     WHERE
     {
       ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
         rdfs:label ?name.
+      FILTER (lang(?name) = "en")
+        OPTIONAL {?club dbo:thumbnail ?thumbnail.}
         OPTIONAL {?club dbo:abstract ?abstract.
-          FILTER (lang(?abstract) = "fr").}
-        OPTIONAL {?club dbo:coach ?coach.}
-        OPTIONAL {?club dbo:manager ?manager.}
+          FILTER (lang(?abstract) = "en")}
+
         OPTIONAL {?club dbo:stadium ?stadium.
           ?stadium rdfs:label ?stadiumName.
-          FILTER (lang(?stadiumName) = "en").}
+          FILTER (lang(?stadiumName) = "en")}
+
         OPTIONAL {?club dbo:ground ?ground.
           ?ground rdfs:label ?groundName.
-          FILTER (lang(?groundName) = "en").}
-        OPTIONAL {?club dbp:captain ?captain.}
+          FILTER (lang(?groundName) = "en")}
+
+        OPTIONAL {?club dbp:nickname ?nickname.
+          FILTER (lang(?nickname) = "en")
+          FILTER (strlen(?nickname) > 0)}
+
+        OPTIONAL {?club dbo:opened ?dateCreation.}
+
+        OPTIONAL {?club dbo:chairman ?president.
+          OPTIONAL {?president rdfs:label ?presidentNameTmp;
+            dbo:thumbnail ?urlThumbnailpresident.
+            FILTER (lang(?presidentNameTmp) = "en")}
+          BIND(IF(BOUND(?presidentNameTmp), ?presidentNameTmp, ?president) AS ?presidentName)}
+
         OPTIONAL {?club dbp:name ?joueur.
-          OPTIONAL {?joueur rdfs:label ?joueurNameTmp.
+          OPTIONAL {?joueur rdfs:label ?joueurNameTmp;
+            dbo:wikiPageID ?idJoueur;
+            dbo:thumbnail ?urlThumbnailJoueur.
             FILTER (lang(?joueurNameTmp) = "en")}
           BIND(IF(BOUND(?joueurNameTmp), ?joueurNameTmp, ?joueur) AS ?joueurName)}
-        OPTIONAL {?club dbp:nickname ?nickname.
-          FILTER (lang(?nickname) = "en").
-          FILTER (strlen(?nickname) > 0).}
-        OPTIONAL {?club dbo:opened ?dateCreation.}
+
+        OPTIONAL {?club dbo:coach ?coach.
+          OPTIONAL {?coach rdfs:label ?coachNameTmp;
+            dbo:thumbnail ?urlThumbnailCoach.
+            FILTER (lang(?coachNameTmp) = "en")}
+          BIND(IF(BOUND(?coachNameTmp), ?coachNameTmp, ?coach) AS ?coachName)}
+
+        OPTIONAL {?club dbo:manager ?manager.
+          OPTIONAL {?manager rdfs:label ?managerNameTmp;
+            dbo:thumbnail ?urlThumbnailManager.
+            FILTER (lang(?managerNameTmp) = "en")}
+          BIND(IF(BOUND(?managerNameTmp), ?managerNameTmp, ?manager) AS ?managerName)}
+
+        OPTIONAL {?club dbp:captain ?captain.
+          OPTIONAL {?captain rdfs:label ?captainNameTmp;
+            dbo:thumbnail ?urlThumbnailCaptain.
+            FILTER (lang(?captainNameTmp) = "en")}
+          BIND(IF(BOUND(?captainNameTmp), ?captainNameTmp, ?captain) AS ?captainName)}
+
         OPTIONAL {?club dbo:league ?league.
           ?league dbo:wikiPageID ?leagueID;
             rdfs:label ?leagueName.
             FILTER (lang(?leagueName) = "en").}
-        OPTIONAL {?club dbo:chairman ?president.}
-      FILTER (lang(?name) = "en").
     }`
   );
 };
