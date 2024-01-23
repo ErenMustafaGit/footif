@@ -23,12 +23,8 @@ export const Team = () => {
   const name = json?.name?.value;
   const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const abstract = json?.abstract?.value ?? "N/A";
-  var coach = json?.coach?.value ?? "N/A";
-  if (coach.startsWith("http"))
-    coach = coach.split("/").pop().replace("_", " "); // Not a player, no need to retrieve the wikiId
-  var manager = json?.manager?.value ?? "N/A";
-  if (manager.startsWith("http"))
-    manager = manager.split("/").pop().replace("_", " "); // Not a player, no need to retrieve the wikiId
+  var coach = json?.coachName?.value ?? "N/A";
+  var manager = json?.managerName?.value ?? "N/A";
   const stadiumName = json?.stadiumName?.value ?? "N/A";
   const groundName = json?.groundName?.value ?? "N/A";
   var captain = json?.captain?.value ?? "N/A";
@@ -120,7 +116,7 @@ export const Team = () => {
             </Heading>
             {joueurIdsArray.map((joueurId: Key, index: string | number) => (
               <Box key={joueurId}>
-                {joueurId === "N/A" ? <Text>{joueurNamesArray[index]}</Text> : <Link href={`/team/${joueurId}`}>{joueurNamesArray[index]}</Link>}
+                {joueurId === "N/A" ? <Text>{joueurNamesArray[index]}</Text> : <Link href={`/player/${joueurId}`}>{joueurNamesArray[index]}</Link>}
               </Box>
             ))}
           </Box>
