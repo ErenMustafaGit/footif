@@ -116,17 +116,18 @@ export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
     ["fetchTeamrDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name, ?stadiumName, ?groundName, ?dateCreation,
-    ?urlThumbnailpresident, ?presidentName, ?thumbnail,
+    `SELECT DISTINCT ?name, ?stadiumName, ?groundName, ?dateCreation, ?abstract,
+    ?urlThumbnailpresident, ?managerName, ?thumbnail,
     ?urlThumbnailCoach, ?coachName,
-    ?urlThumbnailManager, ?managerName,
+    ?urlThumbnailManager,
     ?urlThumbnailCaptain,
     ?leagueID, ?leagueName,
-    GROUP_CONCAT(?joueurName; SEPARATOR="=") AS ?joueursNames,
-    GROUP_CONCAT(?idJoueur; SEPARATOR="=") AS ?joueursIds,
-    GROUP_CONCAT(?nickname; SEPARATOR="=") AS ?nicknames,
-    GROUP_CONCAT(? captainName; SEPARATOR="=" AS ?captainNames,
-    GROUP_CONCAT(? idCaptain; SEPARATOR="=" AS ?captainIds
+    GROUP_CONCAT(distinct ?joueurName; SEPARATOR="=") AS ?joueursNames,
+    GROUP_CONCAT(distinct ?idJoueur; SEPARATOR="=") AS ?joueursIds,
+    GROUP_CONCAT(distinct ?nickname; SEPARATOR="=") AS ?nicknames,
+    GROUP_CONCAT(distinct ?captainName; SEPARATOR="=") AS ?captainNames,
+    GROUP_CONCAT(distinct ?idCaptain; SEPARATOR="=") AS ?captainIds,
+    GROUP_CONCAT(distinct ?presidentName; SEPARATOR="=") AS ?presidentNames
   WHERE
   {
     ?club dbo:wikiPageID "${wikiId}"^^xsd:integer;
