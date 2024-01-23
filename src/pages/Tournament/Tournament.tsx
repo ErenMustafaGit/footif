@@ -64,7 +64,7 @@ export const Tournament = () => {
       }}
     >
       <Box id="blocgauche" style={{ flex: "35%", minWidth: "100px" }}>
-        <Image src={thumbnail}></Image>
+        <Image rounded={4} src={thumbnail}></Image>
         <Box>
           <Box id="champions">
             <Heading size="md">Champions</Heading>

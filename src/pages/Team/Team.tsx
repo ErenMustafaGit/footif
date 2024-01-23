@@ -69,7 +69,7 @@ export const Team = () => {
         style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
       >
         {!!thumbnail ? (
-          <Image src={thumbnail}></Image>
+          <Image rounded={4} src={thumbnail}></Image>
         ) : (
           <Skeleton height="400px" />
         )}
@@ -115,9 +115,15 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Joueurs
             </Heading>
-            {joueurNamesArray.map((joueurName: string, index: string | number) => (
-              <Box key={joueurName}>
-                {joueurIdsArray[index] === undefined ? <Text>{joueurName.startsWith("http") ? joueurName.split("/").pop()?.replace("_"," ") : joueurName}</Text> : <Link href={`/player/${joueurIdsArray[index]}`}>{joueurName}</Link>}
+            {joueurIdsArray.map((joueurId: Key, index: string | number) => (
+              <Box key={joueurId}>
+                {joueurId === "N/A" ? (
+                  <Text>{joueurNamesArray[index]}</Text>
+                ) : (
+                  <Link href={`/player/${joueurId}`}>
+                    {joueurNamesArray[index]}
+                  </Link>
+                )}
               </Box>
             ))}
           </Box>
