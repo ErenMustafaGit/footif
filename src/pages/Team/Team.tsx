@@ -20,6 +20,7 @@ export const Team = () => {
   const abstract = json?.abstract?.value ?? "N/A";
   var coach = json?.coachName?.value ?? "N/A";
   var manager = json?.managerName?.value ?? "N/A";
+  if (manager.startsWith("http")) manager = manager.split("/").pop().replace("_", " ");
   const stadiumName = json?.stadiumName?.value ?? "N/A";
   const groundName = json?.groundName?.value ?? "N/A";
   var captain = json?.captain?.value ?? "N/A";
