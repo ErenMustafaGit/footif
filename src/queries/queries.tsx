@@ -114,9 +114,9 @@ export const useFetchWikiIdFromRessource = (ressourceName: string) => {
 
 export const useFetchTeamDetails = (wikiId: string) => {
   return useBaseQuery(
-    ["fetchTeamrDetails", wikiId],
+    ["fetchTeamDetails", wikiId],
     !!wikiId,
-    `SELECT DISTINCT ?name, ?abstract, ?stadiumName, ?groundName, ?dateCreation,
+    `SELECT DISTINCT ?name, ?abstract, ?stadiumName, ?groundName, ?dateCreation, ?thumbnail,
     ?urlThumbnailpresident, ?presidentName,
     ?urlThumbnailCoach, ?coachName,
     ?urlThumbnailManager, ?managerName,
@@ -131,7 +131,8 @@ export const useFetchTeamDetails = (wikiId: string) => {
       rdfs:label ?name.
     FILTER (lang(?name) = "en")
 
-      OPTIONAL {?club dbo:abstract ?abstract.
+      OPTIONAL {?club dbo:abstract ?abstract;
+        dbo:thumbnail ?thumbnail.
         FILTER (lang(?abstract) = "en")}
 
       OPTIONAL {?club dbo:stadium ?stadium.
