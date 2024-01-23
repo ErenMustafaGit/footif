@@ -115,9 +115,9 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Joueurs
             </Heading>
-            {joueurNamesArray.map((joueurName: string, index: string | number) => (
+            {joueurNamesArray.filter((item: any, pos: any) => joueurNamesArray.indexOf(item) === pos).map((joueurName: string, index: string | number) => (
               <Box key={joueurName}>
-                {joueurIdsArray[index] === undefined ? <Text>{joueurName.startsWith("http") ? joueurName.split("/").pop()?.replace("_"," ") : joueurName}</Text> : <Link href={`/player/${joueurIdsArray[index]}`}>{joueurName}</Link>}
+                {joueurIdsArray.filter((item: any, pos: any) => joueurIdsArray.indexOf(item) === pos)[index] === undefined ? <Text>{joueurName.startsWith("http") ? joueurName.split("/").pop()?.replace("_"," ") : joueurName}</Text> : <Link href={`/player/${joueurIdsArray.filter((item: any, pos: any) => joueurIdsArray.indexOf(item) === pos)[index]}`}>{joueurName}</Link>}
               </Box>
             ))}
           </Box>
