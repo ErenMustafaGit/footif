@@ -69,7 +69,7 @@ export const Team = () => {
         style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
       >
         {!!thumbnail ? (
-          <Image src={thumbnail}></Image>
+          <Image rounded={4} src={thumbnail}></Image>
         ) : (
           <Skeleton height="400px" />
         )}

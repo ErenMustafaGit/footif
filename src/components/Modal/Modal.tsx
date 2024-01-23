@@ -84,7 +84,12 @@ export const RessurectionModal = ({ wikiId }: { wikiId?: string }) => {
               <ModalBody>
                 {/* Flex col for mobile */}
                 <Flex flexDirection={["column", "row"]} gap={4}>
-                  <Image maxHeight={180} maxWidth={180} src={thumbnail}></Image>
+                  <Image
+                    maxHeight={180}
+                    maxWidth={180}
+                    rounded={4}
+                    src={thumbnail}
+                  ></Image>
                   <Text>{abstract}</Text>
                 </Flex>
               </ModalBody>

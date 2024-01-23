@@ -1,8 +1,9 @@
 import { Card as CardBase, CardBody } from "@chakra-ui/card";
-import { Heading, Image, Stack, Text } from "@chakra-ui/react";
+import { Heading, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FADE_UP_ANIMATION_VARIANTS, TYPE } from "../../utils";
 import { motion } from "framer-motion";
+import { Image } from "../Image";
 
 export interface CardProps {
   icon?: string;
@@ -14,6 +15,8 @@ export interface CardProps {
 
 export const Card = ({ icon, title, subtitle, wikiId, type }: CardProps) => {
   const navigator = useNavigate();
+
+  console.log("icon", icon);
 
   const handleClick = () => {
     console.log(title);

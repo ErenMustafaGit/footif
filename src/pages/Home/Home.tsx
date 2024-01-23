@@ -1,4 +1,5 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { Card, Searchbar } from "../../components";
 import { useEffect, useState } from "react";
 import { useFetchSearch } from "../../queries";
@@ -103,7 +104,12 @@ export const Home = () => {
           ) : (
             <>
               {isLoading ? (
-                <Spinner color="green" />
+                <Player
+                  autoplay
+                  loop
+                  src="https://lottie.host/9e33836c-8565-4a36-92ac-97edb60d5a3e/Zw0nNwzkuz.json"
+                  style={{ height: "300px", width: "300px" }}
+                ></Player>
               ) : (
                 INITIAL_DATA.map((item, i) => (
                   <Card
