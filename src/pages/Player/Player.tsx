@@ -1,18 +1,12 @@
 import { useParams } from "react-router";
 import { useFetchPlayerDetails } from "../../queries/queries";
-import {
-  Image,
-  Heading,
-  Box,
-  Text,
-  Spinner,
-  Flex,
-  Skeleton,
-} from "@chakra-ui/react";
+import { Heading, Box, Text, Flex, Skeleton } from "@chakra-ui/react";
 import { Key } from "react";
 import { Link } from "../../components";
 import { getWikipediaThumbnail } from "../../utils";
 import { RessurectionModal } from "../../components/Modal";
+import { Image } from "../../components/Image";
+import { Player as LottiePlayer } from "@lottiefiles/react-lottie-player";
 
 export const Player = () => {
   const { wikiId } = useParams();
@@ -37,8 +31,18 @@ export const Player = () => {
 
   if (isLoading)
     return (
-      <Flex justifyContent="center" height="10rem" alignItems="center">
-        <Spinner color="green" />
+      <Flex
+        justifyContent="center"
+        height="10rem"
+        paddingTop="10rem"
+        alignItems="center"
+      >
+        <LottiePlayer
+          autoplay
+          loop
+          src="https://lottie.host/9e33836c-8565-4a36-92ac-97edb60d5a3e/Zw0nNwzkuz.json"
+          style={{ height: "300px", width: "300px" }}
+        ></LottiePlayer>
       </Flex>
     );
   if (error) return <Text>Error : {error.message}</Text>;
@@ -56,11 +60,7 @@ export const Player = () => {
         id="blocgauche"
         style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
       >
-        {!!thumbnail ? (
-          <Image rounded={4} src={thumbnail}></Image>
-        ) : (
-          <Skeleton height="400px" />
-        )}
+        <Image rounded={4} src={thumbnail}></Image>
         <Box padding={"8px"}>
           <Heading size="md" marginY={"8px"}>
             Informations

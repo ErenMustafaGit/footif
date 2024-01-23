@@ -3,9 +3,11 @@ import {
   useFetchTournamentDetails,
   useFetchWikiIdFromRessource,
 } from "../../queries/queries";
-import { Image, Heading, Box, Text, Flex, Spinner } from "@chakra-ui/react";
+import { Heading, Box, Text, Flex } from "@chakra-ui/react";
 import { Link } from "../../components";
 import { getWikipediaThumbnail } from "../../utils";
+import { Image } from "../../components/Image";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 export const Tournament = () => {
   const { wikiId } = useParams();
@@ -48,8 +50,18 @@ export const Tournament = () => {
 
   if (isLoading)
     return (
-      <Flex justifyContent="center" height="10rem" alignItems="center">
-        <Spinner color="green" />
+      <Flex
+        justifyContent="center"
+        height="10rem"
+        alignItems="center"
+        paddingTop="10rem"
+      >
+        <Player
+          autoplay
+          loop
+          src="https://lottie.host/9e33836c-8565-4a36-92ac-97edb60d5a3e/Zw0nNwzkuz.json"
+          style={{ height: "300px", width: "300px" }}
+        ></Player>
       </Flex>
     );
   if (error) return <Text>Error : {error.message}</Text>;

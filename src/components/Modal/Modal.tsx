@@ -9,9 +9,9 @@ import {
   Text,
   Button,
   useDisclosure,
-  Image,
   Flex,
 } from "@chakra-ui/react";
+import { Image } from "../../components/Image";
 import { Skull } from "lucide-react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useFetchResurrection } from "../../queries";

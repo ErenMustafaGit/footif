@@ -3,18 +3,12 @@ import {
   useFetchTeamDetails,
   useFetchWikiIdFromRessource,
 } from "../../queries";
-import {
-  Image,
-  Heading,
-  Box,
-  Text,
-  Spinner,
-  Flex,
-  Skeleton,
-} from "@chakra-ui/react";
+import { Heading, Box, Text, Flex } from "@chakra-ui/react";
 import { Link } from "../../components";
 import { Key } from "react";
 import { getWikipediaThumbnail } from "../../utils";
+import { Image } from "../../components/Image";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 export const Team = () => {
   const { wikiId } = useParams();
@@ -49,8 +43,18 @@ export const Team = () => {
 
   if (isLoading)
     return (
-      <Flex justifyContent="center" height="10rem" alignItems="center">
-        <Spinner color="green" />
+      <Flex
+        justifyContent="center"
+        height="10rem"
+        alignItems="center"
+        paddingTop="10rem"
+      >
+        <Player
+          autoplay
+          loop
+          src="https://lottie.host/9e33836c-8565-4a36-92ac-97edb60d5a3e/Zw0nNwzkuz.json"
+          style={{ height: "300px", width: "300px" }}
+        ></Player>
       </Flex>
     );
   if (error) return <Text>Error : {error.message}</Text>;
@@ -68,11 +72,7 @@ export const Team = () => {
         id="blocgauche"
         style={{ flex: "35%", minWidth: "250px", padding: "16px" }}
       >
-        {!!thumbnail ? (
-          <Image rounded={4} src={thumbnail}></Image>
-        ) : (
-          <Skeleton height="400px" />
-        )}
+        <Image rounded={4} src={thumbnail}></Image>
         <Box padding={"8px"}>
           <Heading size="md" marginY={"8px"}>
             Informations
@@ -115,11 +115,35 @@ export const Team = () => {
             <Heading size="sm" marginY={"8px"}>
               Joueurs
             </Heading>
-            {joueurNamesArray.filter((item: any, pos: any) => joueurNamesArray.indexOf(item) === pos).map((joueurName: string, index: string | number) => (
-              <Box key={joueurName}>
-                {joueurIdsArray.filter((item: any, pos: any) => joueurIdsArray.indexOf(item) === pos)[index] === undefined ? <Text>{joueurName.startsWith("http") ? joueurName.split("/").pop()?.replace("_"," ") : joueurName}</Text> : <Link href={`/player/${joueurIdsArray.filter((item: any, pos: any) => joueurIdsArray.indexOf(item) === pos)[index]}`}>{joueurName}</Link>}
-              </Box>
-            ))}
+            {joueurNamesArray
+              .filter(
+                (item: any, pos: any) => joueurNamesArray.indexOf(item) === pos
+              )
+              .map((joueurName: string, index: string | number) => (
+                <Box key={joueurName}>
+                  {joueurIdsArray.filter(
+                    (item: any, pos: any) =>
+                      joueurIdsArray.indexOf(item) === pos
+                  )[index] === undefined ? (
+                    <Text>
+                      {joueurName.startsWith("http")
+                        ? joueurName.split("/").pop()?.replace("_", " ")
+                        : joueurName}
+                    </Text>
+                  ) : (
+                    <Link
+                      href={`/player/${
+                        joueurIdsArray.filter(
+                          (item: any, pos: any) =>
+                            joueurIdsArray.indexOf(item) === pos
+                        )[index]
+                      }`}
+                    >
+                      {joueurName}
+                    </Link>
+                  )}
+                </Box>
+              ))}
           </Box>
           <Box id="nickname">
             <Heading size="sm" marginY={"8px"}>
