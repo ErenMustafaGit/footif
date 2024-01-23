@@ -90,7 +90,7 @@ export const useFetchPlayerDetails = (wikiId: string) => {
       OPTIONAL {?player dbo:birthDate ?datebirth.}
       OPTIONAL {?player dbo:birthPlace ?placebirth. ?placebirth dbp:name ?placebirthname. FILTER (lang(?placebirthname) = "en").}
       OPTIONAL {?player dbo:height ?height.}
-      OPTIONAL {?player dbp:currentnumber ?number.}
+      OPTIONAL {?player dbo:number ?number.}
       OPTIONAL {?player dbp:currentclub ?club. ?club dbo:wikiPageID ?currentclubid; rdfs:label ?currentclubname. FILTER (lang(?currentclubname) = "en"). FILTER(!regex(?currentclubname, "under", "i")).}
       OPTIONAL {?player dbo:team ?clubs. ?clubs dbo:wikiPageID ?clubid; rdfs:label ?clubname. FILTER (lang(?clubname) = "en"). FILTER(!regex(?clubname, "under", "i")).}
       OPTIONAL {?player dbo:thumbnail ?photo.}
