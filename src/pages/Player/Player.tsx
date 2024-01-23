@@ -11,13 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { Key } from "react";
 import { Link } from "../../components";
+import { getWikipediaThumbnail } from "../../utils";
+import { RessurectionModal } from "../../components/Modal";
 
 export const Player = () => {
   const { wikiId } = useParams();
   const { isLoading, data, error } = useFetchPlayerDetails(wikiId ?? "");
   const json = data?.results?.bindings[0];
   const name = json?.name?.value;
-  const thumbnail = json?.thumbnail?.value ?? "";
+  const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const abstract = json?.abstract?.value ?? "N/A";
   const nationalteam = json?.nationalteamname?.value ?? "N/A";
   const nationalteamid = json?.nationalteamid?.value ?? "N/A";
@@ -67,7 +69,11 @@ export const Player = () => {
             <Heading size="sm" marginY={"8px"}>
               Equipe nationale
             </Heading>
-            {nationalteamid === "N/A" ? <Text>{nationalteamid}</Text> : <Link href={`/team/${nationalteamid}`}>{nationalteam}</Link>}
+            {nationalteamid === "N/A" ? (
+              <Text>{nationalteamid}</Text>
+            ) : (
+              <Link href={`/team/${nationalteamid}`}>{nationalteam}</Link>
+            )}
           </Box>
           <Box id="positionname">
             <Heading size="sm" marginY={"8px"}>
@@ -103,7 +109,11 @@ export const Player = () => {
             <Heading size="sm" marginY={"8px"}>
               Club actuel
             </Heading>
-            {currentclubid === "N/A" ? <Text>{currentclubid}</Text> : <Link href={`/team/${currentclubid}`}>{currentclubname}</Link>}
+            {currentclubid === "N/A" ? (
+              <Text>{currentclubid}</Text>
+            ) : (
+              <Link href={`/team/${currentclubid}`}>{currentclubname}</Link>
+            )}
           </Box>
           <Box id="clubs">
             <Heading size="md" marginY={"8px"}>
@@ -111,7 +121,11 @@ export const Player = () => {
             </Heading>
             {clubsidsArray.map((clubId: Key, index: string | number) => (
               <Box key={clubId}>
-                {clubId === "N/A" ? <Text>{clubsnamesArray[index]}</Text> : <Link href={`/team/${clubId}`}>{clubsnamesArray[index]}</Link>}
+                {clubId === "N/A" ? (
+                  <Text>{clubsnamesArray[index]}</Text>
+                ) : (
+                  <Link href={`/team/${clubId}`}>{clubsnamesArray[index]}</Link>
+                )}
               </Box>
             ))}
           </Box>
@@ -121,7 +135,17 @@ export const Player = () => {
         id="blocdroit"
         style={{ flex: "65%", minWidth: "200px", padding: "16px" }}
       >
-        <Heading size="xl">{name}</Heading>
+        <Box
+          display="flex"
+          flexDirection={"row"}
+          alignItems="center"
+          justifyContent={"space-between"}
+        >
+          <Heading size="xl">
+            <Text textAlign="justify">{name}</Text>
+          </Heading>
+          <RessurectionModal />
+        </Box>
         <Text textAlign="justify">{abstract}</Text>
       </Box>
     </Box>

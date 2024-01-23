@@ -20,7 +20,6 @@ export const Team = () => {
   const { wikiId } = useParams();
   const { isLoading, data, error } = useFetchTeamDetails(wikiId ?? "");
   const json = data?.results?.bindings[0];
-  console.log(json);
   const name = json?.name?.value;
   const thumbnail = json?.thumbnail ? getWikipediaThumbnail(json) : "";
   const abstract = json?.abstract?.value ?? "N/A";
